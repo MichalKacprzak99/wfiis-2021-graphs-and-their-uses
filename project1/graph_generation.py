@@ -1,20 +1,20 @@
 import numpy as np
-from random import randint
+import random
 
 
 def generate_N_L_graph(vertices_number: int, edges_number: int):
-    generate_edges = set()
-    edge = (randint(0, vertices_number-1), randint(0, vertices_number-1))
+    generate_edges = list()
+    edge = random.choices(range(vertices_number), k=2)
+
     while len(generate_edges) < edges_number:
-        while edge in generate_edges or set(reversed(edge)) in generate_edges or edge[0] >= edge[1]:
-            edge = (randint(0, vertices_number-1), randint(0, vertices_number-1))
-        generate_edges.add(edge)
+        while edge[0] >= edge[1] or edge in generate_edges:
+            edge = random.choices(range(vertices_number), k=2)
+        generate_edges.append(edge)
+
     graph = np.zeros((vertices_number, vertices_number))
-
     for edge in generate_edges:
-        start_vertex, end_vertex = edge
-        graph[start_vertex, end_vertex] = 1
-
+        graph[tuple(edge)] = 1
+        
     return graph + np.transpose(graph)
 
 
