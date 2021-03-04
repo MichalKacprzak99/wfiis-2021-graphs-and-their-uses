@@ -3,4 +3,5 @@ from graph_visualization import visualize_graph
 
 
 if __name__ == "__main__":
-    visualize_graph(generate_N_L_graph(5, 5))
+    graph_by_matrix = generate_N_L_graph(100, 5)
+    visualize_graph(graph_by_matrix)
