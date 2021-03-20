@@ -1,6 +1,9 @@
+from typing import List, DefaultDict
+
 from project1 import graph_conversion
 from graph_conversion import adj_matrix_to_list
 from collections import defaultdict
+
 graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
              [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
              [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -12,31 +15,31 @@ graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
              [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
              [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            ]
+             ]
 
 adj_list = adj_matrix_to_list(graph_N_L)
 
 
-def recursive_components(comp_number, vertex, graph, comps):
+def recursive_components(comp_number: int, vertex: int, graph: DefaultDict[int, list], comps: List[int]):
     for u in graph[vertex]:
-        if comps[u-1] == -1:
-            comps[u-1] = comp_number
+        if comps[u] == -1:
+            comps[u] = comp_number
             recursive_components(comp_number, u, graph, comps)
 
 
-def find_biggest_graph_component(graph):
+def find_biggest_graph_component(graph: DefaultDict[int, list]):
     comp_number = 0
     comps = [-1] * len(graph.keys())
 
     for v in graph.keys():
-        if comps[v-1] == -1:
+        if comps[v] == -1:
             comp_number += 1
-            comps[v-1] = comp_number
+            comps[v] = comp_number
             recursive_components(comp_number, v, graph, comps)
 
     comps_representation = defaultdict(list)
     for i, e in enumerate(comps):
-        comps_representation[e].append(i+1)
+        comps_representation[e].append(i + 1)
     biggest_comp = 0
     biggest_comp_length = 0
     for comp, comp_vertices in sorted(comps_representation.items()):

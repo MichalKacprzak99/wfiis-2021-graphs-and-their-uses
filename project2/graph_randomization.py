@@ -1,19 +1,19 @@
 from collections import defaultdict, OrderedDict
 import random
+from typing import DefaultDict, List
+
 from project1 import graph_conversion
 from graph_conversion import adj_list_to_matrix
 from graph_visualization import visualize_graph
 
 
-def create_graph_from_degree_sequence(degree_sequence: list):
+def create_graph_from_degree_sequence(degree_sequence: List[int]) -> DefaultDict[int, list]:
     adjacency_list = defaultdict(list)
     degree_sequence = list(sorted(degree_sequence, reverse=True))
     degree_sequence = OrderedDict(zip([i + 1 for i in range(len(degree_sequence))], degree_sequence))
 
     while True:
-
         vertex, degree = degree_sequence.popitem(last=False)
-
         for index, (key, value) in enumerate(degree_sequence.items()):
             if index < degree:
                 degree_sequence[key] -= 1
@@ -41,7 +41,7 @@ def delete_edge(x1, x2, y1, y2, adjacency_list):
     adjacency_list[y2].remove(y1)
 
 
-def randomize_graph(degree_sequence: list, swap_number: int):
+def randomize_graph(degree_sequence: List[int], swap_number: int) -> DefaultDict[int, list]:
     adjacency_list = create_graph_from_degree_sequence(degree_sequence)
 
     for _ in range(swap_number):
@@ -56,7 +56,7 @@ def randomize_graph(degree_sequence: list, swap_number: int):
                 if x2 == y2 or y2 in adjacency_list[x2] and (x2 in adjacency_list[y1] or y2 in adjacency_list[x1]):
                     pass
                 else:
-                    delete_edge(x1, x2, y1, y2,adjacency_list)
+                    delete_edge(x1, x2, y1, y2, adjacency_list)
                     if x2 not in adjacency_list[y2]:
                         swap_edge(x1, x2, y1, y2, adjacency_list)
                     else:
@@ -72,5 +72,6 @@ def generate_regular_graph(vertices_number: int, k_degree: int):
 
         adj_matrix = adj_list_to_matrix(randomize_graph(degree_sequence, 100))
         visualize_graph(adj_matrix)
+
 
 generate_regular_graph(7, 2)

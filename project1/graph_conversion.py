@@ -21,7 +21,7 @@ def adj_matrix_to_list(adj_matrix):
     for row_index, row in enumerate(adj_matrix):
         for col_index, item in enumerate(row):
             if item == 1:
-                adjacency_list[row_index].append(col_index + 1)
+                adjacency_list[row_index].append(col_index)
 
     return adjacency_list
 
