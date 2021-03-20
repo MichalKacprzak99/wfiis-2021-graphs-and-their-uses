@@ -17,10 +17,11 @@ graph_N_L = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
 
 def adj_matrix_to_list(adj_matrix):
     adjacency_list = defaultdict(list)
-    for row in range(len(adj_matrix)):
-        for col in range(len(adj_matrix)):
-            if adj_matrix[row][col] == 1:
-                adjacency_list[row+1].append(col + 1)
+
+    for row_index, row in enumerate(adj_matrix):
+        for col_index, item in enumerate(row):
+            if item == 1:
+                adjacency_list[row_index].append(col_index + 1)
 
     return adjacency_list
 
@@ -34,10 +35,10 @@ def adj_list_to_matrix(adj_list):
     amount_of_keys = len(adj_list)
     adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
 
-    for key in adj_list:
-        for value in adj_list[key]:
-            adjacency_matrix[key-1][value - 1] = 1
-            adjacency_matrix[value - 1][key-1] = 1
+    for key, row in adj_list.items():
+        for item in row:
+            adjacency_matrix[key][item - 1] = 1
+            adjacency_matrix[item - 1][key] = 1
 
     return adjacency_matrix
 
@@ -51,11 +52,12 @@ def adj_matrix_to_inc_matrix(adj_matrix):
 
     current_edge = 0
     size = len(adj_matrix)
-    for row in range(0, size):
-        for col in range(row + 1, size):
-            if adj_matrix[row][col]:
-                inc_matrix[row][current_edge] = 1
-                inc_matrix[col][current_edge] = 1
+
+    for row_index, row in enumerate(adj_matrix):
+        for col_index in range(row + 1, size):
+            if row[col_index]:
+                inc_matrix[row_index][current_edge] = 1
+                inc_matrix[col_index][current_edge] = 1
                 current_edge += 1
 
     return inc_matrix
