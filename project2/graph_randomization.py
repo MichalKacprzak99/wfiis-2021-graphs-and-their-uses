@@ -52,13 +52,11 @@ def randomize_graph(degree_sequence: list, swap_number: int):
 
                 x2 = random.sample([vertex for vertex in adjacency_list[x1] if vertex != x1], k=1)[0]
                 y2 = random.sample([vertex for vertex in adjacency_list[y1] if vertex != y1], k=1)[0]
-                if x2 == y2:
-                    pass
 
-                if y2 in adjacency_list[x2] and (x2 in adjacency_list[y1] or y2 in adjacency_list[x1]):
+                if x2 == y2 or y2 in adjacency_list[x2] and (x2 in adjacency_list[y1] or y2 in adjacency_list[x1]):
                     pass
                 else:
-                    delete_edge(x1, x2, y1, y2)
+                    delete_edge(x1, x2, y1, y2,adjacency_list)
                     if x2 not in adjacency_list[y2]:
                         swap_edge(x1, x2, y1, y2, adjacency_list)
                     else:
@@ -68,8 +66,11 @@ def randomize_graph(degree_sequence: list, swap_number: int):
     return adjacency_list
 
 
-tmp = create_graph_from_degree_sequence([4, 2, 2, 3, 2, 1, 4, 2, 2, 2, 2])
+def generate_regular_graph(vertices_number: int, k_degree: int):
+    if vertices_number >= k_degree + 1 and vertices_number * k_degree % 2 == 0:
+        degree_sequence = [k_degree] * vertices_number
 
-tmp1 = randomize_graph([4, 2, 2, 3, 2, 1, 4, 2, 2, 2, 2], 10)
+        adj_matrix = adj_list_to_matrix(randomize_graph(degree_sequence, 100))
+        visualize_graph(adj_matrix)
 
-visualize_graph(adj_list_to_matrix(tmp1))
+generate_regular_graph(7, 2)
