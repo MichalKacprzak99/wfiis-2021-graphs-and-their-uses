@@ -20,7 +20,7 @@ def adj_matrix_to_list(adj_matrix):
     for row in range(len(adj_matrix)):
         for col in range(len(adj_matrix)):
             if adj_matrix[row][col] == 1:
-                adjacency_list[row].append(col + 1)
+                adjacency_list[row+1].append(col + 1)
 
     return adjacency_list
 
@@ -36,8 +36,8 @@ def adj_list_to_matrix(adj_list):
 
     for key in adj_list:
         for value in adj_list[key]:
-            adjacency_matrix[key][value - 1] = 1
-            adjacency_matrix[value - 1][key] = 1
+            adjacency_matrix[key-1][value - 1] = 1
+            adjacency_matrix[value - 1][key-1] = 1
 
     return adjacency_matrix
 
