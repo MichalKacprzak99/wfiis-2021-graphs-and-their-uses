@@ -1,18 +1,19 @@
 import numpy as np
-from collections import defaultdict, Counter
+from collections import defaultdict
 
 graph_N_L = [[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
- [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
- [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
- [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0],
- [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
- [1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0],
- [0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
- [0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
- [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]]
+             [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
+             [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0],
+             [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+             [1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
+             [0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]]
+
 
 def adj_matrix_to_list(adj_matrix):
     adjacency_list = defaultdict(list)
@@ -20,23 +21,26 @@ def adj_matrix_to_list(adj_matrix):
         for col in range(len(adj_matrix)):
             if adj_matrix[row][col] == 1:
                 adjacency_list[row].append(col + 1)
-    
+
     return adjacency_list
+
 
 def print_adj_list(adj_list):
     for row in adj_list:
         print(str(row + 1) + ": " + str(adj_list[row]))
 
+
 def adj_list_to_matrix(adj_list):
     amount_of_keys = len(adj_list)
-    adjancency_matrix = np.zeros((amount_of_keys, amount_of_keys))
+    adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
 
     for key in adj_list:
         for value in adj_list[key]:
-            adjancency_matrix[key][value - 1] = 1;
-            adjancency_matrix[value - 1][key] = 1;
-    
-    return adjancency_matrix
+            adjacency_matrix[key][value - 1] = 1
+            adjacency_matrix[value - 1][key] = 1
+
+    return adjacency_matrix
+
 
 def adj_matrix_to_inc_matrix(adj_matrix):
     number_of_edges = 0
@@ -55,6 +59,7 @@ def adj_matrix_to_inc_matrix(adj_matrix):
                 current_edge += 1
 
     return inc_matrix
+
 
 def inc_matrix_to_adj_matrix(inc_matrix):
     number_of_rows = len(inc_matrix)
@@ -76,14 +81,15 @@ def inc_matrix_to_adj_matrix(inc_matrix):
 
         adj_matrix[start_of_edge][end_of_edge] = 1
         adj_matrix[end_of_edge][start_of_edge] = 1
-    
+
     return adj_matrix
+
 
 def adj_list_to_inc_matrix(adj_list):
     adj_matrix = adj_list_to_matrix(adj_list)
     return adj_matrix_to_inc_matrix(adj_matrix)
 
+
 def inc_matrix_to_adj_list(inc_matrix):
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
-
