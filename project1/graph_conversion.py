@@ -37,8 +37,8 @@ def adj_list_to_matrix(adj_list):
 
     for key, row in adj_list.items():
         for item in row:
-            adjacency_matrix[key][item - 1] = 1
-            adjacency_matrix[item - 1][key] = 1
+            adjacency_matrix[key-1][item - 1] = 1
+            adjacency_matrix[item - 1][key-1] = 1
 
     return adjacency_matrix
 
