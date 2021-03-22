@@ -21,7 +21,7 @@ def adj_matrix_to_list(adj_matrix):
     for row_index, row in enumerate(adj_matrix):
         for col_index, item in enumerate(row):
             if item == 1:
-                adjacency_list[row_index].append(col_index)
+                adjacency_list[row_index].append(col_index + 1)
 
     return adjacency_list
 
@@ -95,3 +95,4 @@ def adj_list_to_inc_matrix(adj_list):
 def inc_matrix_to_adj_list(inc_matrix):
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
+
