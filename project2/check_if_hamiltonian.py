@@ -1,4 +1,7 @@
-# Sample from test script
+# Global variable. True if given graph was hamiltonian. False by default.
+is_hamiltonian = False
+
+# Sample list from test script
 sample_adj_list = {
             0: [1, 3, 4],
             1: [0, 2, 4, 5],
@@ -23,8 +26,11 @@ def print_path(path):
 # Core function - checking if graph is hamiltonian, if so prints possible paths
 def check_if_hamiltonian(adj_list, no_of_nodes, starting_node, visited_nodes, path):
 
+    global is_hamiltonian
+
     # Print path when all nodes have been visited and recently visited node connects to starting node
     if len(path) == no_of_nodes and path[0] in adj_list[path[no_of_nodes-1]]:
+        is_hamiltonian = True
         print_path(path)
 
     # Loop through associated nodes
@@ -66,6 +72,8 @@ def run(adj_list, starting_node=0):
 
     # Curtain raises
     check_if_hamiltonian(adj_list, no_of_nodes, starting_node, visited_nodes, path)
+    if not is_hamiltonian:
+        print("Could not find any cycles, thus the graph is not hamiltonian")
 
 
-# run(sample_adj_list)
+run(sample_adj_list)
