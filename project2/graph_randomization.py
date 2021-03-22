@@ -27,18 +27,16 @@ def create_graph_from_degree_sequence(degree_sequence: List[int]) -> DefaultDict
     return adjacency_list
 
 
-def swap_edge(x1, x2, y1, y2, adjacency_list):
+def swap_edges(x1, x2, y1, y2, adjacency_list):
     adjacency_list[x1].append(y1)
     adjacency_list[y1].append(x1)
     adjacency_list[x2].append(y2)
     adjacency_list[y2].append(x2)
 
 
-def delete_edge(x1, x2, y1, y2, adjacency_list):
+def delete_edge(x1, x2, adjacency_list):
     adjacency_list[x1].remove(x2)
     adjacency_list[x2].remove(x1)
-    adjacency_list[y1].remove(y2)
-    adjacency_list[y2].remove(y1)
 
 
 def randomize_graph(degree_sequence: List[int], swap_number: int) -> DefaultDict[int, list]:
@@ -56,11 +54,12 @@ def randomize_graph(degree_sequence: List[int], swap_number: int) -> DefaultDict
                 if x2 == y2 or y2 in adjacency_list[x2] and (x2 in adjacency_list[y1] or y2 in adjacency_list[x1]):
                     pass
                 else:
-                    delete_edge(x1, x2, y1, y2, adjacency_list)
+                    delete_edge(x1, x2, adjacency_list)
+                    delete_edge(y1, y2, adjacency_list)
                     if x2 not in adjacency_list[y2]:
-                        swap_edge(x1, x2, y1, y2, adjacency_list)
+                        swap_edges(x1, x2, y1, y2, adjacency_list)
                     else:
-                        swap_edge(x1, x2, y2, y1, adjacency_list)
+                        swap_edges(x1, x2, y2, y1, adjacency_list)
                     break
 
     return adjacency_list
