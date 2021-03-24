@@ -1,4 +1,3 @@
-import graph_generation
 import math
 import random as rand
 import numpy as np
@@ -25,7 +24,7 @@ def visualize_graph(graph_by_matrix):
         vertices.append(sphere(pos=positionVector, radius=radius,
                                color=vec(rand.random(), rand.random(), rand.random())))
 
-    result = np.where(graph_by_matrix == 1)
+    result = np.where(graph_by_matrix != 0)
     listaa = np.sort(list(zip(result[0], result[1])))
 
     z = [tuple(i) for i in np.unique(listaa, axis=0)]
@@ -33,3 +32,4 @@ def visualize_graph(graph_by_matrix):
     for (first, second) in z:
         curve(vertices[first].pos, vertices[second].pos, color=vec(rand.random(), rand.random(), rand.random()))
     window.capture("letnie_dranie_graph")
+
