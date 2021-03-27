@@ -26,14 +26,14 @@ def create_graph_from_degree_sequence(degree_sequence: List[int]) -> DefaultDict
     return adjacency_list
 
 
-def swap_edges(x1, x2, y1, y2, adjacency_list):
+def swap_edges(x1: int, x2: int, y1: int, y2: int, adjacency_list: DefaultDict[int, list]):
     adjacency_list[x1].append(y1)
     adjacency_list[y1].append(x1)
     adjacency_list[x2].append(y2)
     adjacency_list[y2].append(x2)
 
 
-def delete_edge(x1, x2, adjacency_list):
+def delete_edge(x1: int, x2: int, adjacency_list: DefaultDict[int, list]):
     adjacency_list[x1].remove(x2)
     adjacency_list[x2].remove(x1)
 
