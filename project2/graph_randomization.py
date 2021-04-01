@@ -72,4 +72,5 @@ def generate_regular_graph(vertices_number: int, k_degree: int):
         visualize_graph(adj_matrix)
 
 
-generate_regular_graph(7, 2)
+if __name__ == "__main__":
+    generate_regular_graph(7, 2)
