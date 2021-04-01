@@ -5,11 +5,10 @@
 # randomize that graph until you get a euler cycle
 # if euler cycle received, list that euler cycle
 from random import randint
-from graph_randomization import randomize_graph, create_graph_from_degree_sequence
-from graph_visualization import visualize_graph
-from graph_conversion import adj_list_to_matrix
+from graph_randomization import create_graph_from_degree_sequence
+from project1.graph_visualization import visualize_graph
+from project1.graph_conversion import adj_list_to_matrix
 import copy
-from typing import DefaultDict
 
 
 def convert_graph(graph):
@@ -23,7 +22,7 @@ def convert_graph(graph):
 def is_bridge(graph):
     start = list(graph)[0]
     visited = {}
-    iterator = 0
+
     for v in graph:
         visited[v] = -1
     visited[start] = 0
