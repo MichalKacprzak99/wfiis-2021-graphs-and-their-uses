@@ -35,7 +35,6 @@ def print_result(tree):
 
 # Find set of node i
 def find(parent, i):
-
     if parent[i] == i:
         return i
     return find(parent, parent[i])
@@ -43,7 +42,6 @@ def find(parent, i):
 
 # Unify two nodes
 def union(parent, rank, x, y):
-
     x_root = find(parent, x)
     y_root = find(parent, y)
 
@@ -69,7 +67,6 @@ def kruskal_mst(graph, vertices):
     # Sorting the graph by weight (ascending)
     graph = sorted(graph, key=lambda l: l[2])
 
-
     for node in range(vertices):
         parent.append(node)
         rank.append(0)
@@ -93,4 +90,4 @@ def kruskal_mst(graph, vertices):
     print_result(result_tree)
 
 
-kruskal_mst(sample_weighted_graph, 12)
+# kruskal_mst(sample_weighted_graph, 12)
