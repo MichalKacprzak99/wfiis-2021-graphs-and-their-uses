@@ -92,5 +92,6 @@ def kruskal_mst(graph: list, vertices: int):
 
     print_result(result_tree)
 
-
-kruskal_mst(sample_weighted_graph, 12)
+# test
+# to do -> check if vertices are correct
+# kruskal_mst(sample_weighted_graph, 12)
