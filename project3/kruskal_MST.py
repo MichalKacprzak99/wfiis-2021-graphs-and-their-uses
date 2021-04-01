@@ -23,7 +23,7 @@ sample_weighted_graph = [[0, 1, 3],
 
 
 # Neatly prints result graph in terminal
-def print_result(tree):
+def print_result(tree: list):
     minimum_cost = 0
     print("Edges in the constructed tree")
     print("src --- w --- dst")
@@ -34,14 +34,14 @@ def print_result(tree):
 
 
 # Find set of node i
-def find(parent, i):
+def find(parent: list, i: int):
     if parent[i] == i:
         return i
     return find(parent, parent[i])
 
 
 # Unify two nodes
-def union(parent, rank, x, y):
+def union(parent: list, rank: list, x: int, y: int):
     x_root = find(parent, x)
     y_root = find(parent, y)
 
@@ -56,7 +56,10 @@ def union(parent, rank, x, y):
 
 
 # Kruskal algorithm for finding minimum spanning tree in graph
-def kruskal_mst(graph, vertices):
+def kruskal_mst(graph: list, vertices: int):
+
+    if vertices <= 0:
+        exit(-1)
 
     result_tree = []    # result_tree tree
     parent = []         # array of roots
@@ -90,4 +93,4 @@ def kruskal_mst(graph, vertices):
     print_result(result_tree)
 
 
-# kruskal_mst(sample_weighted_graph, 12)
+kruskal_mst(sample_weighted_graph, 12)
