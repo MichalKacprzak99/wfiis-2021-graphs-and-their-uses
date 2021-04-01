@@ -1,6 +1,18 @@
 import numpy as np
 from collections import defaultdict
 
+graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+             [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
+             [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+             [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             ]
 
 def adj_matrix_to_list(adj_matrix):
     adjacency_list = defaultdict(list)
@@ -30,7 +42,8 @@ def adj_list_to_matrix(adj_list):
     return adjacency_matrix
 
 
-def adj_matrix_to_inc_matrix(adj_matrix):
+def adj_matrix_to_inc_matrix(ad_matrix):
+    adj_matrix = np.array(ad_matrix)
     number_of_edges = 0
     for row in adj_matrix:
         number_of_edges += np.count_nonzero(row == 1)
@@ -41,7 +54,7 @@ def adj_matrix_to_inc_matrix(adj_matrix):
     size = len(adj_matrix)
 
     for row_index, row in enumerate(adj_matrix):
-        for col_index in range(row + 1, size):
+        for col_index in range(row_index + 1, size):
             if row[col_index]:
                 inc_matrix[row_index][current_edge] = 1
                 inc_matrix[col_index][current_edge] = 1
@@ -82,4 +95,8 @@ def adj_list_to_inc_matrix(adj_list):
 def inc_matrix_to_adj_list(inc_matrix):
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
+
+
+if __name__ == "__main__":
+    adj_matrix_to_inc_matrix(graph_N_L)
 
