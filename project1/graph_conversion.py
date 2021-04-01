@@ -1,18 +1,6 @@
 import numpy as np
 from collections import defaultdict
 
-graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-             [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
-             [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-             [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-             ]
 
 def adj_matrix_to_list(adj_matrix):
     adjacency_list = defaultdict(list)
@@ -95,8 +83,4 @@ def adj_list_to_inc_matrix(adj_list):
 def inc_matrix_to_adj_list(inc_matrix):
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
-
-
-if __name__ == "__main__":
-    adj_matrix_to_inc_matrix(graph_N_L)
 
