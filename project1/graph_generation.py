@@ -4,30 +4,22 @@ import numpy as np
 def vertices_number_controller(generator):
     def wrapper_vertices_number_controller(*args):
         vertices_number, _ = args
-        try:
-            if vertices_number <= 0:
-                raise ValueError("The number of vertices must be positive")
-            return generator(*args)
-        except ValueError as err:
-            print(err)
-            raise SystemExit
+        if vertices_number <= 0:
+            raise ValueError("The number of vertices must be positive")
+        return generator(*args)
 
     return wrapper_vertices_number_controller
 
 
 @vertices_number_controller
-def generate_N_L_graph(vertices_number: int, edges_number: int):
-    try:
-        if edges_number > vertices_number * (vertices_number - 1) // 2:
-            raise ValueError(f"The number of edges must be smaller than or equal "
-                             f"to {vertices_number * (vertices_number - 1) // 2} for {vertices_number} vertices")
-    except ValueError as err:
-        print(err)
-        raise SystemExit
+def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
+    if edges_number > vertices_number * (vertices_number - 1) // 2:
+        raise ValueError(f"The number of edges must be smaller than or equal "
+                         f"to {vertices_number * (vertices_number - 1) // 2} for {vertices_number} vertices")
 
     generated_edges = 0
-    graph = np.full((vertices_number, vertices_number), 0 if vertices_number != 1 else 1)
-    replace = True if vertices_number == 1 else False
+    graph = np.zeros((vertices_number, vertices_number))
+    replace = vertices_number == 1
 
     while generated_edges < edges_number:
         edge = np.random.choice(range(vertices_number), size=2, replace=replace)
@@ -42,13 +34,9 @@ def generate_N_L_graph(vertices_number: int, edges_number: int):
 
 
 @vertices_number_controller
-def generate_N_P_graph(vertices_number: int, edges_probability: float):
-    try:
-        if edges_probability < 0 or edges_probability > 1:
-            raise ValueError(f"The probability value must be between 0 and 1")
-    except ValueError as err:
-        print(err)
-        raise SystemExit
+def generate_N_P_graph(vertices_number: int, edges_probability: float) -> np.ndarray:
+    if edges_probability < 0 or edges_probability > 1:
+        raise ValueError("The probability value must be between 0 and 1")
 
     def random_edge(i, j):
         if i > j:

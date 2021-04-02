@@ -1,8 +1,10 @@
+from typing import DefaultDict
+
 import numpy as np
 from collections import defaultdict
 
 
-def adj_matrix_to_list(adj_matrix):
+def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
     adjacency_list = defaultdict(list)
 
     for index, item in np.ndenumerate(adj_matrix):
@@ -13,12 +15,12 @@ def adj_matrix_to_list(adj_matrix):
     return adjacency_list
 
 
-def print_adj_list(adj_list):
+def print_adj_list(adj_list: DefaultDict[int, list]):
     for row in adj_list:
         print(str(row + 1) + ": " + str(list(map(lambda vertex: vertex + 1, adj_list[row]))))
 
 
-def adj_list_to_matrix(adj_list):
+def adj_list_to_matrix(adj_list) -> np.ndarray:
     amount_of_keys = len(adj_list)
     adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
 
@@ -30,7 +32,7 @@ def adj_list_to_matrix(adj_list):
     return adjacency_matrix
 
 
-def adj_matrix_to_inc_matrix(ad_matrix):
+def adj_matrix_to_inc_matrix(ad_matrix: np.ndarray) -> np.ndarray:
     adj_matrix = np.array(ad_matrix)
     number_of_edges = 0
     for row in adj_matrix:
@@ -51,7 +53,7 @@ def adj_matrix_to_inc_matrix(ad_matrix):
     return inc_matrix
 
 
-def inc_matrix_to_adj_matrix(inc_matrix):
+def inc_matrix_to_adj_matrix(inc_matrix: np.ndarray) -> np.ndarray:
     number_of_rows = len(inc_matrix)
     number_of_columns = len(inc_matrix[0])
 
@@ -75,12 +77,12 @@ def inc_matrix_to_adj_matrix(inc_matrix):
     return adj_matrix
 
 
-def adj_list_to_inc_matrix(adj_list):
+def adj_list_to_inc_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
     adj_matrix = adj_list_to_matrix(adj_list)
     return adj_matrix_to_inc_matrix(adj_matrix)
 
 
-def inc_matrix_to_adj_list(inc_matrix):
+def inc_matrix_to_adj_list(inc_matrix: np.ndarray) -> DefaultDict[int, list]:
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
 

@@ -4,7 +4,7 @@ import numpy as np
 from vpython import *
 
 
-def visualize_graph(graph_by_matrix):
+def visualize_graph(graph_by_matrix: np.ndarray):
     window = canvas(width=1000, height=800)
 
     (vertexNumber, vertexNumber) = graph_by_matrix.shape
@@ -31,5 +31,5 @@ def visualize_graph(graph_by_matrix):
 
     for (first, second) in z:
         curve(vertices[first].pos, vertices[second].pos, color=vec(rand.random(), rand.random(), rand.random()))
-    window.capture("letnie_dranie_graph")
+    # window.capture("letnie_dranie_graph")
 
