@@ -9,7 +9,7 @@ from project1.graph_visualization import visualize_graph
 def create_graph_from_degree_sequence(degree_sequence: List[int]) -> DefaultDict[int, list]:
     adjacency_list = defaultdict(list)
     degree_sequence = list(sorted(degree_sequence, reverse=True))
-    degree_sequence = OrderedDict(zip([i + 1 for i in range(len(degree_sequence))], degree_sequence))
+    degree_sequence = OrderedDict(zip(range(len(degree_sequence)), degree_sequence))
 
     while True:
         vertex, degree = degree_sequence.popitem(last=False)
