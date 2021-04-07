@@ -22,6 +22,17 @@ sample_weighted_graph = [[0, 1, 3],
                          [10, 11, 3]]
 
 
+# Get number of vertices in a graph (note: works properly for graph with nodes starting at '0')
+def get_vertices(graph: list):
+    vertices = 0
+    for n in graph:
+        if vertices <= n[0]:
+            vertices = n[0]
+        if vertices <= n[1]:
+            vertices = n[1]
+    return vertices+1
+
+
 # Neatly prints result graph in terminal
 def print_result(tree: list):
     minimum_cost = 0
@@ -40,7 +51,7 @@ def find(parent: list, i: int):
     return find(parent, parent[i])
 
 
-# Unify two nodes
+# Unify sets
 def union(parent: list, rank: list, x: int, y: int):
     x_root = find(parent, x)
     y_root = find(parent, y)
@@ -56,8 +67,8 @@ def union(parent: list, rank: list, x: int, y: int):
 
 
 # Kruskal algorithm for finding minimum spanning tree in graph
-def kruskal_mst(graph: list, vertices: int):
-
+def kruskal_mst(graph: list):
+    vertices = get_vertices(graph)
     if vertices <= 0:
         exit(-1)
 
@@ -92,6 +103,3 @@ def kruskal_mst(graph: list, vertices: int):
 
     print_result(result_tree)
 
-# test
-# to do -> check if vertices are correct
-# kruskal_mst(sample_weighted_graph, 12)
