@@ -1,12 +1,12 @@
 import numpy as np
 
 
-def vertices_number_controller(generator):
+def vertices_number_controller(graph_generator):
     def wrapper_vertices_number_controller(*args):
         vertices_number, _ = args
         if vertices_number <= 0:
             raise ValueError("The number of vertices must be positive")
-        return generator(*args)
+        return graph_generator(*args)
 
     return wrapper_vertices_number_controller
 
@@ -23,13 +23,10 @@ def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
 
     while generated_edges < edges_number:
         edge = np.random.choice(range(vertices_number), size=2, replace=replace)
-        if graph[tuple(edge)] == 1:
-            pass
-        else:
+        if graph[tuple(edge)] == 0:
             graph[tuple(edge)] = 1
             graph[tuple(edge[::-1])] = 1
             generated_edges += 1
-
     return graph
 
 
