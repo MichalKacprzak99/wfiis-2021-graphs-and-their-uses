@@ -44,3 +44,15 @@ class GraphGenerationTest(unittest.TestCase):
 
         with self.subTest():
             self.assertEqual(graph_matrix.tolist(), graph_matrix.T.tolist())
+
+    def test_generate_N_P_graph_generated(self):
+        self.vertices_number = 5
+
+        graph_matrix = generate_N_P_graph(self.vertices_number, 0.5)
+
+        with self.subTest():
+            is_diagonal_empty = False if np.sum(graph_matrix.diagonal()) else True
+            self.assertTrue(is_diagonal_empty)
+
+        with self.subTest():
+            self.assertEqual(graph_matrix.tolist(), graph_matrix.T.tolist())
