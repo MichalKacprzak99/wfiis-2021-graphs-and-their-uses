@@ -16,8 +16,11 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
 
 
 def print_adj_list(adj_list: DefaultDict[int, list]):
-    for row in adj_list:
-        print(str(row + 1) + ": " + str(list(map(lambda vertex: vertex + 1, adj_list[row]))))
+    if adj_list:
+        for row in adj_list:
+            print(str(row + 1) + ": " + str(list(map(lambda vertex: vertex + 1, adj_list[row]))))
+    else:
+        print("No edges in this graph")
 
 
 def adj_list_to_matrix(adj_list) -> np.ndarray:
