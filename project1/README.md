@@ -21,3 +21,8 @@ wylosowanego grafu G(n, l),dla n = 10 oraz  l = 5 oraz jego wizualizacja.
 W celu weryfikacji poprawności rozwiązania został użyty przykład udostępniony w materiałach na Upelu. 
 W folderze `test/` znajdują się testy, które weryfikują sposób generowania grafów 
 oraz poprawność konwersji pomiędzy poszczególnymi reprezentacjami.
+W celu uruchomienia testów, będąc w głównym folderze, należy wpisać:
+
+    ```
+    python3 -m unittest
+    ```
