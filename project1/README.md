@@ -10,7 +10,7 @@
 - Python wersja <=3.6
 - pobranie dodatkowych bibliotek potrzebnych do realizacji programu możliwe za pomocą komendy:
     ```
-    pip install requirements.txt
+    python3 pip install -r requirements.txt
     ```
 ## Opis Projektu
 Projekt jest realizacją zestawu nr 1 z przedmiotu "Grafy i ich zastowania". 
