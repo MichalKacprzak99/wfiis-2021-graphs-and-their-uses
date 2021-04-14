@@ -23,6 +23,6 @@ W folderze `test/` znajdują się testy, które weryfikują sposób generowania 
 oraz poprawność konwersji pomiędzy poszczególnymi reprezentacjami.
 W celu uruchomienia testów, będąc w głównym folderze, należy wpisać:
 
-    ```
+    
     python3 -m unittest
-    ```
+    
