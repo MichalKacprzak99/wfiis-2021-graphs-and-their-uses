@@ -67,9 +67,17 @@ def get_euler_graph(n: int):
             graph_copy.pop(current_vertex)
         euler_cycle.append((current_vertex, u))
 
-    print(euler_cycle)
     return euler_cycle
 
 
-get_euler_graph(7)
+# Print euler cycle
+# Add 1 to vertex numbers
+def print_euler_cycle(array):
+    result = ''.join('%s->' % str(x[0] + 1) for x in array)
+    result += str(array[-1][1] + 1)
+    print(result)
+
+
+euler = get_euler_graph(5)
+print_euler_cycle(euler)
 
