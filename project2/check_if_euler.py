@@ -8,10 +8,13 @@ from random import randint
 from graph_randomization import create_graph_from_degree_sequence
 from project1.graph_visualization import visualize_graph
 from project1.graph_conversion import adj_list_to_matrix
+from typing import List, DefaultDict
 import copy
 
 
-def convert_graph(graph):
+# Function converting a graph into a list
+# TODO: Change this function into a different one maybe
+def convert_graph(graph: DefaultDict[int, list]) -> List:
     edges = []
     for u in graph:
         for v in graph[u]:
@@ -19,7 +22,9 @@ def convert_graph(graph):
     return edges
 
 
-def is_bridge(graph):
+# Function checking if an edge is a bridge
+# A bridge is an edge that connects two parts of the graph
+def is_bridge(graph: DefaultDict[int, list]) -> int:
     start = list(graph)[0]
     visited = {}
 
@@ -37,7 +42,9 @@ def is_bridge(graph):
     return list(visited.values()).count(1) != len(graph)
 
 
-def get_euler_graph(n: int):
+# A function generating a graph based on the number for edges specified
+# TODO: Change the convert_graph in while into a variable that is being updated throughout the loop
+def get_euler_graph(n: int) -> List:
     degree_sequence = [randint(1, int(n / 2)) * 2 for x in range(n)]
 
     graph_adj_list = create_graph_from_degree_sequence(degree_sequence)
@@ -72,7 +79,7 @@ def get_euler_graph(n: int):
 
 # Print euler cycle
 # Add 1 to vertex numbers
-def print_euler_cycle(array):
+def print_euler_cycle(array: List) -> None:
     result = ''.join('%s->' % str(x[0] + 1) for x in array)
     result += str(array[-1][1] + 1)
     print(result)

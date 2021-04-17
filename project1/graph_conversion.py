@@ -4,6 +4,9 @@ import numpy as np
 from collections import defaultdict
 
 
+# Function converting adjacency matrix to adjacency list
+# Let's call our adj_matrix M
+# If M[i, j] == 1 add row to adjacency list
 def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
     adjacency_list = defaultdict(list)
 
@@ -15,7 +18,8 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
     return adjacency_list
 
 
-def print_adj_list(adj_list: DefaultDict[int, list]):
+# Function printing the adjacency list
+def print_adj_list(adj_list: DefaultDict[int, list]) -> None:
     if adj_list:
         for row in adj_list:
             print(str(row + 1) + ": " + str(list(map(lambda vertex: vertex + 1, adj_list[row]))))
@@ -23,6 +27,8 @@ def print_adj_list(adj_list: DefaultDict[int, list]):
         print("No edges in this graph")
 
 
+# Function converting adjacency list to adjacency matrix
+# Iterate over adjacency list and change the value in the matrix
 def adj_list_to_matrix(adj_list) -> np.ndarray:
     amount_of_keys = len(adj_list)
     adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
@@ -35,19 +41,25 @@ def adj_list_to_matrix(adj_list) -> np.ndarray:
     return adjacency_matrix
 
 
+# Function converting adjacency matrix to incidence matrix
 def adj_matrix_to_inc_matrix(ad_matrix: np.ndarray) -> np.ndarray:
     adj_matrix = np.array(ad_matrix)
     number_of_edges = 0
+
+    # Get the amount of edges in the adj_matrix
     for row in adj_matrix:
         number_of_edges += np.count_nonzero(row == 1)
     number_of_edges = int(number_of_edges / 2)
     inc_matrix = np.zeros((len(adj_matrix), number_of_edges))
 
+    # Keep check of the current edge number (represented in a column of incidence matrix)
     current_edge = 0
     size = len(adj_matrix)
 
+    # Iterate over adjacency matrix
     for row_index, row in enumerate(adj_matrix):
         for col_index in range(row_index + 1, size):
+            # If you find an edge save it in the incidence matrix and increase the current edge number
             if row[col_index]:
                 inc_matrix[row_index][current_edge] = 1
                 inc_matrix[col_index][current_edge] = 1
@@ -56,17 +68,20 @@ def adj_matrix_to_inc_matrix(ad_matrix: np.ndarray) -> np.ndarray:
     return inc_matrix
 
 
+# Function converting incidence matrix to adjacency matrix
 def inc_matrix_to_adj_matrix(inc_matrix: np.ndarray) -> np.ndarray:
     number_of_rows = len(inc_matrix)
     number_of_columns = len(inc_matrix[0])
 
     adj_matrix = np.zeros((number_of_rows, number_of_rows))
+    # Iterate over the columns of incidence matrix
     for col in range(0, number_of_columns):
 
         start_of_edge = 0
         end_of_edge = 0
 
         for row in range(0, number_of_rows):
+            # If you find value of 1 in matrix, assign it
             if inc_matrix[row][col]:
                 if start_of_edge == 0:
                     start_of_edge = row
@@ -80,6 +95,7 @@ def inc_matrix_to_adj_matrix(inc_matrix: np.ndarray) -> np.ndarray:
     return adj_matrix
 
 
+# Both of the functions below reuse already written functions (at cost of speed)
 def adj_list_to_inc_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
     adj_matrix = adj_list_to_matrix(adj_list)
     return adj_matrix_to_inc_matrix(adj_matrix)
@@ -88,4 +104,3 @@ def adj_list_to_inc_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
 def inc_matrix_to_adj_list(inc_matrix: np.ndarray) -> DefaultDict[int, list]:
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
-
