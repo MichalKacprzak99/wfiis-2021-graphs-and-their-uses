@@ -20,7 +20,7 @@ def visualize_graph(graph_by_matrix: np.ndarray):
     for i in range(vertexNumber):
         positionVector = vector(x0 + (r+radius) * math.sin(t[i]),
                                 y0 + (r+radius) * math.cos(t[i]), 0)
-        label(pos=positionVector, text=str(i+1), opacity=0, box=False)
+        label(pos=positionVector*(1.1+radius / positionVector.mag), text=str(i+1), opacity=0, box=False)
         vertices.append(sphere(pos=positionVector, radius=radius,
                                color=vec(rand.random(), rand.random(), rand.random())))
 
