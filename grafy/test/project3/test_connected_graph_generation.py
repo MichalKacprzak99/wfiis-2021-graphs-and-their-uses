@@ -1,12 +1,8 @@
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../project3")))
 import unittest
 import numpy as np
 
 
-from connected_graph_generation import generate_connected_graph
+from project3.connected_graph_generation import generate_connected_graph
 
 
 class ConnectedGraphGenerationTest(unittest.TestCase):

@@ -1,10 +1,8 @@
-import os
-import sys
 import unittest
 import numpy as np
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../project1")))
 
-from graph_generation import generate_N_L_graph, generate_N_P_graph
+
+from project1.graph_generation import generate_N_L_graph, generate_N_P_graph
 
 
 class GraphGenerationTest(unittest.TestCase):
