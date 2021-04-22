@@ -1,7 +1,6 @@
 import numpy as np
 from project1.graph_generation import generate_N_L_graph
 
-
 def generate_connected_graph(vertices_number: int) -> np.ndarray:
     maximum_edges_number = (vertices_number * (vertices_number - 1) // 2)
     edges_number = np.random.randint(vertices_number - 1, maximum_edges_number + 1)
