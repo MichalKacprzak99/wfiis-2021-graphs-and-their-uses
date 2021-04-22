@@ -1,5 +1,6 @@
 import numpy as np
 from typing import List, Tuple
+import pretty_errors
 
 graph_N_L_1 = [[0, 8, 0, 9, 3, 9, 5],
                [8, 0, 0, 2, 4, 0, 1],
@@ -36,11 +37,14 @@ def find_vertex_with_min_d_s(S, d_s) -> int:
 
 
 def dijkstra_algorithm(graph_matrix: np.ndarray, start_vertex: int = 0) -> Tuple[list, list]:
+
+    if np.any(graph_matrix < 0):
+        raise ValueError("Dijkstra's algorithm does not support negative edge weights")
+
     vertices_number, _ = graph_matrix.shape
     d_s, p_s = init(vertices_number, start_vertex)
-    graph_vertices = [i for i in range(vertices_number)]
+    graph_vertices = list(range(vertices_number))
     S = []
-
     while S != graph_vertices:
         u = find_vertex_with_min_d_s(S, d_s)
         S.append(u)
@@ -52,27 +56,26 @@ def dijkstra_algorithm(graph_matrix: np.ndarray, start_vertex: int = 0) -> Tuple
     return d_s, p_s
 
 
-def generate_shortest_paths(p_s: list, start_vertex: int) -> List[List[int]]:
+def generate_shortest_paths(p_s: list) -> List[List[int]]:
     paths = [[] for _ in p_s]
-    tmp = []
-    while len(p_s) != len(tmp):
+    finished_vertices = []
+    while len(p_s) != len(finished_vertices):
         for vertex, previous_vertex in enumerate(p_s):
-            if len(paths[vertex]) != 0 and paths[vertex][-1] == vertex + 1:
+            if vertex in finished_vertices:
                 continue
-            elif previous_vertex == start_vertex:
-                paths[vertex].extend([start_vertex + 1, vertex + 1])
-                tmp.append(vertex)
             elif previous_vertex is None:
                 paths[vertex].append(vertex + 1)
-                tmp.append(vertex)
+                finished_vertices.append(vertex)
             elif len(paths[previous_vertex]) != 0:
                 paths[vertex].extend([*paths[previous_vertex], vertex + 1])
-                tmp.append(vertex)
+                finished_vertices.append(vertex)
     return paths
 
 
 def print_dijkstra_algorithm(d_s: list, p_s: list):
     start_vertex = p_s.index(None)
-    paths = generate_shortest_paths(p_s, start_vertex)
-    for vertex, (weight, path) in enumerate(zip(d_s, paths)):
-        print(f'vertex: {vertex + 1}; weight: {weight}; path: {path}')
+    paths = generate_shortest_paths(p_s)
+    print("Shortest paths from start vertex to others\n")
+    print(f"Start vertex: {start_vertex + 1}\n")
+    for vertex, (length, path) in enumerate(zip(d_s, paths)):
+        print(f'vertex: {vertex + 1}; path length: {length}; path: {path}')
