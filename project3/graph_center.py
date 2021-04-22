@@ -14,9 +14,11 @@ def generate_vertices_distance_matrix(graph_matrix: np.ndarray) -> np.ndarray:
 
 def find_graph_center(graph_matrix: np.ndarray) -> int:
     distance_matrix = generate_vertices_distance_matrix(graph_matrix)
-    return np.argmin(np.sum(distance_matrix, axis=0)) + 1
+    graph_center = np.argmin(np.sum(distance_matrix, axis=0)) + 1
+    return graph_center
 
 
 def find_graph_minimax_center(graph_matrix: np.ndarray) -> int:
     distance_matrix = generate_vertices_distance_matrix(graph_matrix)
-    return np.argmin(np.max(distance_matrix, axis=0)) + 1
+    graph_minimax_center = np.argmin(np.max(distance_matrix, axis=0)) + 1
+    return graph_minimax_center
