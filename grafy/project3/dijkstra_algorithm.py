@@ -2,14 +2,6 @@ import numpy as np
 from typing import List, Tuple
 import pretty_errors
 
-graph_N_L_1 = [[0, 8, 0, 9, 3, 9, 5],
-               [8, 0, 0, 2, 4, 0, 1],
-               [0, 0, 0, 0, 0, 4, 0],
-               [9, 2, 0, 0, 0, 9, 0],
-               [3, 4, 0, 0, 0, 4, 0],
-               [9, 0, 4, 9, 4, 0, 0],
-               [5, 1, 0, 0, 0, 0, 0]]
-
 
 def init(vertex_number: int, start_vertex: int) -> Tuple[list, list]:
     d_s = [np.Inf] * vertex_number
@@ -36,12 +28,16 @@ def find_vertex_with_min_d_s(S, d_s) -> int:
     return vertex_with_min_ds
 
 
-def dijkstra_algorithm(graph_matrix: np.ndarray, start_vertex: int = 0) -> Tuple[list, list]:
+def dijkstra_algorithm(graph_matrix: np.ndarray, start_vertex: int = 1) -> Tuple[list, list]:
 
     if np.any(graph_matrix < 0):
         raise ValueError("Dijkstra's algorithm does not support negative edge weights")
 
     vertices_number, _ = graph_matrix.shape
+    start_vertex -= 1
+    if start_vertex >= vertices_number or start_vertex < 0:
+        raise ValueError(f"Value of start vertex must be between 1 and {vertices_number}")
+
     d_s, p_s = init(vertices_number, start_vertex)
     graph_vertices = list(range(vertices_number))
     S = []
