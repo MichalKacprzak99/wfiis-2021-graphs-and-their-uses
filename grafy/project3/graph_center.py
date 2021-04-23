@@ -1,12 +1,12 @@
 import numpy as np
-from dijkstra_algorithm import dijkstra_algorithm
+from .dijkstra_algorithm import dijkstra_algorithm
 
 
 def generate_vertices_distance_matrix(graph_matrix: np.ndarray) -> np.ndarray:
     distance_matrix = np.zeros(shape=graph_matrix.shape)
     vertices_number, _ = graph_matrix.shape
     for vertex in range(vertices_number):
-        d_s, _ = dijkstra_algorithm(graph_matrix, vertex)
+        d_s, _ = dijkstra_algorithm(graph_matrix, vertex+1)
         distance_matrix[vertex, :] = d_s
 
     return distance_matrix

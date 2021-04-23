@@ -29,7 +29,7 @@ def print_adj_list(adj_list: DefaultDict[int, list]) -> None:
 
 # Function converting adjacency list to adjacency matrix
 # Iterate over adjacency list and change the value in the matrix
-def adj_list_to_matrix(adj_list) -> np.ndarray:
+def adj_list_to_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
     amount_of_keys = len(adj_list)
     adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
 

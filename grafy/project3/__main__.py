@@ -19,5 +19,6 @@ if __name__ == "__main__":
     graph_center = find_graph_center(random_connected_graph)
     print(f"\nGraph center {graph_center}\n")
     graph_minimax_center = find_graph_minimax_center(random_connected_graph)
-    print(f"minimax graph center: {graph_minimax_center}\n")
+    print(f"Mnimax graph center: {graph_minimax_center}\n")
     visualize_graph(random_connected_graph)
+
