@@ -22,8 +22,35 @@ sample_weighted_graph = [[0, 1, 3],
                          [10, 11, 3]]
 
 
+sample_adjacency_matrix = [[0, 3, 2, 0, 9, 0, 0, 0, 0, 0, 0, 0],
+                           [3, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0],
+                           [2, 0, 0, 0, 6, 9, 0, 0, 0, 0, 0, 0],
+                           [0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+                           [9, 4, 6, 0, 0, 0, 1, 2, 0, 0, 0, 0],
+                           [0, 0, 9, 0, 0, 0, 0, 1, 2, 0, 0, 0],
+                           [0, 0, 0, 3, 1, 0, 0, 0, 0, 5, 0, 0],
+                           [0, 0, 0, 0, 2, 1, 0, 0, 0, 5, 6, 9],
+                           [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0],
+                           [0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 5],
+                           [0, 0, 0, 0, 0, 0, 0, 6, 2, 0, 0, 3],
+                           [0, 0, 0, 0, 0, 0, 0, 9, 0, 5, 3, 0]]
+
+
+def convert_adj_matrix(matrix: list) -> list:
+    graph = []
+    size = len(matrix)
+    curr = -1
+    for row in matrix:
+        curr += 1
+        for i in range(curr, size):
+            if row[i] != 0:
+                graph.append([curr, i, row[i]])
+
+    return graph
+
+
 # Get number of vertices in a graph (note: works properly for graph with nodes starting at '0')
-def get_vertices(graph: list):
+def get_vertices(graph: list) -> int:
     vertices = 0
     for n in graph:
         if vertices <= n[0]:
@@ -45,7 +72,7 @@ def print_result(tree: list):
 
 
 # Find set of node i
-def find(parent: list, i: int):
+def find(parent: list, i: int) -> int:
     if parent[i] == i:
         return i
     return find(parent, parent[i])
