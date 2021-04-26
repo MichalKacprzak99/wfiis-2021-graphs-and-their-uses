@@ -2,8 +2,8 @@ from collections import defaultdict, OrderedDict
 import random
 from typing import DefaultDict, List
 
-from project1.graph_conversion import adj_list_to_matrix
-from project1.graph_visualization import visualize_graph
+from grafy.project1.graph_conversion import adj_list_to_matrix
+from grafy.project1.graph_visualization import visualize_graph
 
 
 def create_graph_from_degree_sequence(degree_sequence: List[int]) -> DefaultDict[int, list]:
