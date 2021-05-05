@@ -4,13 +4,27 @@ import numpy as np
 from vpython import *
 
 
-def visualize_graph(graph_by_matrix: np.ndarray):
-    window = canvas(width=1000, height=800)
+def check_symmetric(a, rtol=1e-05, atol=1e-08):
+    return np.allclose(a, a.T, rtol=rtol, atol=atol)
+
+
+def visualize_graph(graph_by_matrix: np.ndarray, weighted_graph: bool = False):
+    """Method to visualize graph using vPython
+
+        Parameters:
+        graph_by_matrix (np.ndarray): graph given by matrix
+        weighted_graph (bool): flag to determine if graph is weighted
+
+        Returns:
+        None
+
+       """
+    canvas(width=1000, height=800)
 
     (vertexNumber, vertexNumber) = graph_by_matrix.shape
 
-    rfactor = 50
-    radius = -(1 / 4) * vertexNumber + 100
+    rfactor = 20
+    radius = -(1 / 4) * vertexNumber + 50
     vertices = []
     r = rfactor * vertexNumber + 100
     x0 = 0
@@ -31,11 +45,19 @@ def visualize_graph(graph_by_matrix: np.ndarray):
 
         for (first, second) in z:
             line_axis = (vertices[second].pos - vertices[first].pos)
-            line_axis_normalized = line_axis / line_axis.mag
+            line_axis_normalized = line_axis.norm()
+
+            rand_color = vec(rand.random(), rand.random(), rand.random())
 
             label(pos=vertices[first].pos + line_axis_normalized * line_axis.mag / 2,
-                  text=str(graph_by_matrix[first][second]), opacity=0,
+                  opacity=1.0,
+                  text=str(graph_by_matrix[first][second]),
+                  background=rand_color,
                   box=False)
-            arrow(pos=vertices[first].pos, axis=line_axis_normalized * 50, shaftwidth=1)
-            curve(vertices[first].pos, vertices[second].pos, color=vec(rand.random(), rand.random(), rand.random()))
+            arrow(pos=vertices[second].pos - 1.9 * radius * line_axis_normalized,
+                  axis=line_axis_normalized,
+                  length=radius,
+                  color=rand_color)
+
+            curve(vertices[first].pos, vertices[second].pos, color=rand_color)
     # window.capture("letnie_dranie_graph")
