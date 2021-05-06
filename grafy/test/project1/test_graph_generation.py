@@ -1,7 +1,8 @@
 import unittest
-
 import numpy as np
-from graph_generation import generate_N_L_graph, generate_N_P_graph
+
+
+from project1.graph_generation import generate_N_L_graph, generate_N_P_graph
 
 
 class GraphGenerationTest(unittest.TestCase):
@@ -49,6 +50,12 @@ class GraphGenerationTest(unittest.TestCase):
         self.vertices_number = 5
 
         graph_matrix = generate_N_P_graph(self.vertices_number, 0.5)
+
+        with self.subTest():
+            maximum_edges_number = (self.vertices_number * (self.vertices_number - 1) // 2)
+            minimum_edges_number = 0
+            generated_edges = np.count_nonzero(graph_matrix) // 2
+            self.assertTrue(minimum_edges_number <= generated_edges <= maximum_edges_number)
 
         with self.subTest():
             is_diagonal_empty = False if np.sum(graph_matrix.diagonal()) else True

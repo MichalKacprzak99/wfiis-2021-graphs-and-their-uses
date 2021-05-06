@@ -1,4 +1,5 @@
 import numpy as np
+import pretty_errors
 
 
 def vertices_number_controller(graph_generator):
