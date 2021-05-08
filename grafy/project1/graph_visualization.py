@@ -4,10 +4,6 @@ import numpy as np
 from vpython import *
 
 
-def check_symmetric(a, rtol=1e-05, atol=1e-08):
-    return np.allclose(a, a.T, rtol=rtol, atol=atol)
-
-
 def visualize_graph(graph_by_matrix: np.ndarray, weighted_graph: bool = False, digraph: bool = False):
     """Method to visualize graph using vPython
 
