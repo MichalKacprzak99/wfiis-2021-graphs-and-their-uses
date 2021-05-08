@@ -1,5 +1,3 @@
-from typing import DefaultDict
-
 import numpy as np
 from collections import defaultdict
 
@@ -7,7 +5,7 @@ from collections import defaultdict
 # Function converting adjacency matrix to adjacency list
 # Let's call our adj_matrix M
 # If M[i, j] == 1 add row to adjacency list
-def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
+def adj_matrix_to_list(adj_matrix: np.ndarray) -> dict:
     adjacency_list = defaultdict(list)
 
     for index, item in np.ndenumerate(adj_matrix):
@@ -19,7 +17,7 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
 
 
 # Function printing the adjacency list
-def print_adj_list(adj_list: DefaultDict[int, list]) -> None:
+def print_adj_list(adj_list: dict) -> None:
     if adj_list:
         for row in adj_list:
             print(str(row + 1) + ": " + str(list(map(lambda vertex: vertex + 1, adj_list[row]))))
@@ -29,7 +27,7 @@ def print_adj_list(adj_list: DefaultDict[int, list]) -> None:
 
 # Function converting adjacency list to adjacency matrix
 # Iterate over adjacency list and change the value in the matrix
-def adj_list_to_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
+def adj_list_to_matrix(adj_list: dict) -> np.ndarray:
     amount_of_keys = len(adj_list)
     adjacency_matrix = np.zeros((amount_of_keys, amount_of_keys))
 
@@ -96,11 +94,11 @@ def inc_matrix_to_adj_matrix(inc_matrix: np.ndarray) -> np.ndarray:
 
 
 # Both of the functions below reuse already written functions (at cost of speed)
-def adj_list_to_inc_matrix(adj_list: DefaultDict[int, list]) -> np.ndarray:
+def adj_list_to_inc_matrix(adj_list: dict) -> np.ndarray:
     adj_matrix = adj_list_to_matrix(adj_list)
     return adj_matrix_to_inc_matrix(adj_matrix)
 
 
-def inc_matrix_to_adj_list(inc_matrix: np.ndarray) -> DefaultDict[int, list]:
+def inc_matrix_to_adj_list(inc_matrix: np.ndarray) -> dict:
     adj_matrix = inc_matrix_to_adj_matrix(inc_matrix)
     return adj_matrix_to_list(adj_matrix)
