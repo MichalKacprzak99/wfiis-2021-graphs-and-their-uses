@@ -1,19 +1,40 @@
 import numpy as np
 import pretty_errors
+import functools
 
 
-def vertices_number_controller(graph_generator):
+def vertices_number_controller(func):
+    @functools.wraps(func)
     def wrapper_vertices_number_controller(*args):
-        vertices_number, _ = args
+        vertices_number, *_ = args
         if vertices_number <= 0:
             raise ValueError("The number of vertices must be positive")
-        return graph_generator(*args)
+        return func(*args)
 
     return wrapper_vertices_number_controller
 
 
 @vertices_number_controller
 def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
+    """Generate graph from given vertices and edges number
+
+    Parameters
+    ----------
+    vertices_number : int
+        The vertices number in graph
+    edges_number : int
+        The edges number in graph
+    Returns
+    -------
+    numpy.array
+        an array which represents adjacency matrix of generated graph
+
+    Raises
+    ______
+    ValueError
+        If edges_number is greater than vertices_number * (vertices_number - 1) //2
+        If vertices_number is less than 0
+    """
     if edges_number > vertices_number * (vertices_number - 1) // 2:
         raise ValueError(f"The number of edges must be smaller than or equal "
                          f"to {vertices_number * (vertices_number - 1) // 2} for {vertices_number} vertices")
@@ -33,6 +54,25 @@ def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
 
 @vertices_number_controller
 def generate_N_P_graph(vertices_number: int, edges_probability: float) -> np.ndarray:
+    """Generate graph from given vertices number and edge probability
+
+    Parameters
+    ----------
+    vertices_number : int
+        The vertices number in graph
+    edges_probability : float
+        The probability that between two vertices will be edge
+    Returns
+    -------
+    numpy.array
+        an array which represents adjacency matrix of generated graph
+
+    Raises
+    ______
+    ValueError
+        If edge_probability is not in range (0,1)
+        If vertices_number is less than 0
+    """
     if edges_probability < 0 or edges_probability > 1:
         raise ValueError("The probability value must be between 0 and 1")
 
