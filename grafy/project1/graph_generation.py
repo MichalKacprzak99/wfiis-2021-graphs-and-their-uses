@@ -16,7 +16,7 @@ def vertices_number_controller(func):
 
 @vertices_number_controller
 def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
-    """Generate graph from given vertices and edges number
+    """Generate random strict graph with given vertices and edges number
 
     Parameters
     ----------
@@ -26,14 +26,14 @@ def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
         The edges number in graph
     Returns
     -------
-    numpy.array
+    np.ndarray
         an array which represents adjacency matrix of generated graph
 
     Raises
     ______
     ValueError
         If edges_number is greater than vertices_number * (vertices_number - 1) //2
-        If vertices_number is less than 0
+        If vertices_number is less than 1
     """
     if edges_number > vertices_number * (vertices_number - 1) // 2:
         raise ValueError(f"The number of edges must be smaller than or equal "
@@ -54,24 +54,25 @@ def generate_N_L_graph(vertices_number: int, edges_number: int) -> np.ndarray:
 
 @vertices_number_controller
 def generate_N_P_graph(vertices_number: int, edges_probability: float) -> np.ndarray:
-    """Generate graph from given vertices number and edge probability
+    """Generate random strict graph with given vertices number and edge probability
+
 
     Parameters
     ----------
     vertices_number : int
-        The vertices number in graph
+        vertices number in graph
     edges_probability : float
-        The probability that between two vertices will be edge
+        probability that between two vertices will be edge
     Returns
     -------
-    numpy.array
+    np.ndarray
         an array which represents adjacency matrix of generated graph
 
     Raises
     ______
     ValueError
         If edge_probability is not in range (0,1)
-        If vertices_number is less than 0
+        If vertices_number is less than 1
     """
     if edges_probability < 0 or edges_probability > 1:
         raise ValueError("The probability value must be between 0 and 1")
