@@ -10,9 +10,9 @@ if __name__ == "__main__":
     print("Adjacency matrix\n")
     print(random_connected_graph)
 
-    d, s = dijkstra_algorithm(random_connected_graph)
+    distance_matrix, previous_matrix = dijkstra_algorithm(random_connected_graph)
     print()
-    print_dijkstra_algorithm_result(d, s)
+    print_dijkstra_algorithm_result(distance_matrix, previous_matrix)
     vertices_distance_matrix = generate_vertices_distance_matrix(random_connected_graph)
     print("\nGraph distance matrix\n")
     print(vertices_distance_matrix)

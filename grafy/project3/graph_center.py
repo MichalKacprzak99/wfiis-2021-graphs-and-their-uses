@@ -1,5 +1,5 @@
 import numpy as np
-from dijkstra_algorithm import dijkstra_algorithm
+from project3.dijkstra_algorithm import dijkstra_algorithm
 
 
 def generate_vertices_distance_matrix(graph_matrix: np.ndarray) -> np.ndarray:

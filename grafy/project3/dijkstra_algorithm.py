@@ -66,7 +66,8 @@ def dijkstra_algorithm(graph_matrix: np.ndarray, start_vertex: int = 1) -> Tuple
     Parameters
     ----------
     graph_matrix : numpy.ndarray
-        adjacency matrix of graph
+        adjacency matrix of graph with non-negative weight
+
     start_vertex : int
         it is initial vertex for algorithm, paths will be calculate from this vertex to the rest
     Returns
