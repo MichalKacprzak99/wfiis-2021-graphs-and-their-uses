@@ -56,6 +56,13 @@ W pliku `__main__.py` znajduje się przykładowe użycie zaimplementowanych funk
 
     graph_minimax_center = find_graph_minimax_center(adj_matrix)
     ```
+    
+  * Znalezienie i wypisanie minimalnego drzewa rozpinającego dla grafu 
+    ```python
+    from kruskal_mst import kruskal_mst
+    
+    kruskal_mst(random_connected_graph)
+    ```
 
     
 ## Poprawność rozwiązania
