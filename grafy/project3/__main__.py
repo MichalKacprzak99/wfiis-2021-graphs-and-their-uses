@@ -22,4 +22,4 @@ if __name__ == "__main__":
     print(f"Mnimax graph center: {graph_minimax_center}\n")
     print("Minimal spanning tree")
     kruskal_mst(random_connected_graph)
-    visualize_graph(random_connected_graph)
+    visualize_graph(random_connected_graph, weighted_graph=True)

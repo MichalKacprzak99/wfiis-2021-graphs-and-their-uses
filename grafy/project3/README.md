@@ -63,6 +63,15 @@ W pliku `__main__.py` znajduje się przykładowe użycie zaimplementowanych funk
     
     kruskal_mst(random_connected_graph)
     ```
+    
+  * Wizualizacja losowego spójnego grafu o x wierchołkach i wagach krawędzi z zakresu (1,11)
+    ```python
+    from graph_visualization import visualize_graph
+    from connected_graph_generation import generate_connected_graph
+    
+    adj_matrix = generate_connected_graph(x)
+    visualize_graph(adj_matrix, weighted_graph=True)
+    ```
 
     
 ## Poprawność rozwiązania
