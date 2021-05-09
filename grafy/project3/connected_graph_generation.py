@@ -20,8 +20,10 @@ def generate_connected_graph(vertices_number: int) -> np.ndarray:
     ValueError
         If vertices_number is less than 0
     """
-    maximum_edges_number = (vertices_number * (vertices_number - 1) // 2)
-    edges_number = np.random.randint(vertices_number - 1, maximum_edges_number + 1)
+    maximum_edges_number = vertices_number * (vertices_number - 1) // 2
+    minimum_edges_number = (vertices_number - 1) * (vertices_number - 2) // 2
+
+    edges_number = np.random.randint(minimum_edges_number, maximum_edges_number + 1)
     graph = generate_N_L_graph(vertices_number, edges_number)
 
     def apply_weight(edge):
