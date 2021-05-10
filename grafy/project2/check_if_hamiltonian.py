@@ -23,7 +23,7 @@ def print_path(path: list):
     Prints hamiltonian path into the terminal
 
         Parameters:
-            
+            path (list): possible path in hamiltonian graph
 
     """
     print('[ ', end='')
