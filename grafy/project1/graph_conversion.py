@@ -27,7 +27,9 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> dict:
 
 
 def print_adj_list(adj_list: dict) -> None:
-    """Print adjacency list
+    """Print adjacency list - counting vertices from 1 unlike in our adjacency list.
+    With NumPy arrays we index from 0, and as we use them for adjacency and incidence matrices,
+    we did the same in adjacency list.
 
     Parameters
     ----------
