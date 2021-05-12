@@ -1,6 +1,6 @@
 from typing import List, DefaultDict
 
-from project1.graph_conversion import adj_matrix_to_list
+from grafy.project1.graph_conversion import adj_matrix_to_list
 from collections import defaultdict
 
 graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],

@@ -1,6 +1,5 @@
 import kosaraju
 from project3 import connected_graph_generation
-from project1 import graph_visualization
 import bellman_ford
 from numpy import all
 
