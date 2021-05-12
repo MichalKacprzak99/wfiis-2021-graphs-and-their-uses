@@ -4,7 +4,7 @@ import numpy as np
 from collections import defaultdict
 
 
-# Function converting adjacency matrix to adjacency list
+# Function converting adjacency matrix to adjacency listb
 # Let's call our adj_matrix M
 # If M[i, j] == 1 add row to adjacency list
 def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
@@ -12,7 +12,7 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> DefaultDict[int, list]:
 
     for index, item in np.ndenumerate(adj_matrix):
         row, column = index
-        if item == 1:
+        if item != 0:
             adjacency_list[row].append(column)
 
     return adjacency_list

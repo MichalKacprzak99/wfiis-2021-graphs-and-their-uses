@@ -16,6 +16,3 @@ def generate_connected_graph(vertices_number: int) -> np.ndarray:
 
     apply_weight = np.vectorize(apply_weight)
     return apply_weight(connected_graph)
-
-
-visualize_graph(generate_connected_graph(6))

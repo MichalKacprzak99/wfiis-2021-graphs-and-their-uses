@@ -1,10 +1,9 @@
 import numpy as np
-from graph_conversion import adj_matrix_to_list, print_adj_list
+from graph_conversion import adj_matrix_to_list
 from typing import DefaultDict
-import collections
 
 
-def kosaraju(G: np.ndarray):
+def kosaraju(G: np.ndarray) -> np.ndarray:
     d = np.full(G.shape[0], -1)
     f = np.full(G.shape[0], -1)
     t = 0
@@ -27,14 +26,7 @@ def kosaraju(G: np.ndarray):
             nr += 1
             comp[v] = nr
             components_r(nr, v, adj_list, comp)
-    print(comp)
-
-
-# v - wierzchołek;
-# G - graf;
-# d - tablica czasów odwiedzenia;
-# f - tablica czasów przetworzenia;
-# t - czas przetworzenia;
+    return comp
 
 
 def DFS_visit(v: int, G: DefaultDict[int, list], d: np.ndarray, f: np.ndarray, t: int) -> int:
