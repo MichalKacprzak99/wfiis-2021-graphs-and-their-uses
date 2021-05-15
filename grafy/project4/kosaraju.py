@@ -1,5 +1,5 @@
 import numpy as np
-from graph_conversion import adj_matrix_to_list
+from grafy.project1.graph_conversion import adj_matrix_to_list
 from typing import DefaultDict
 
 
