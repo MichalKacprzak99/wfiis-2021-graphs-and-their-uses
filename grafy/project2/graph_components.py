@@ -1,32 +1,41 @@
-from typing import List, DefaultDict
+from typing import List, DefaultDict, Dict
 
 from grafy.project1.graph_conversion import adj_matrix_to_list
 from collections import defaultdict
 
-graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-             [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
-             [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-             [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-             ]
 
-adj_list = adj_matrix_to_list(graph_N_L)
+def recursive_components(comp_number: int, vertex: int, graph: Dict[int, list], comps: List[int]):
+    """
+    Recursive helper function for finding components
 
+    Parameters
+    ----------
+    comp_number : int
+        A numpy array that represents the adjacency matrix
 
-def recursive_components(comp_number: int, vertex: int, graph: DefaultDict[int, list], comps: List[int]):
+    vertex: int
+
+    graph: dict
+
+    comps: List[int]
+
+    """
     for u in graph[vertex]:
         if comps[u] == -1:
             comps[u] = comp_number
             recursive_components(comp_number, u, graph, comps)
 
 
-def find_biggest_graph_component(graph: DefaultDict[int, list]):
+def find_biggest_graph_component(graph: Dict[int, list]):
+    """
+    Function that finds and prints all components and the biggest one
+
+    Parameters
+    ----------
+    graph : dict
+        A dict that represents the graph as an adjacency list
+
+    """
     comp_number = 0
     comps = [-1] * len(graph.keys())
 
@@ -37,10 +46,13 @@ def find_biggest_graph_component(graph: DefaultDict[int, list]):
             recursive_components(comp_number, v, graph, comps)
 
     comps_representation = defaultdict(list)
+
     for i, e in enumerate(comps):
         comps_representation[e].append(i + 1)
+
     biggest_comp = 0
     biggest_comp_length = 0
+
     for comp, comp_vertices in sorted(comps_representation.items()):
         if len(comp_vertices) > biggest_comp_length:
             biggest_comp = comp
@@ -50,4 +62,21 @@ def find_biggest_graph_component(graph: DefaultDict[int, list]):
     print(f"Najwieksza skladowa ma numer {biggest_comp}")
 
 
-find_biggest_graph_component(adj_list)
+if __name__ == "__main__":
+
+    graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+                 [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
+                 [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                 [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+                 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                 ]
+
+    adj_list = adj_matrix_to_list(graph_N_L)
+
+    find_biggest_graph_component(adj_list)

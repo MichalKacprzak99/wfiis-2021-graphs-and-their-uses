@@ -1,7 +1,6 @@
 import unittest
 import numpy as np
-
-from project3.dijkstra_algorithm import dijkstra_algorithm, generate_shortest_paths
+from grafy.project3.dijkstra_algorithm import dijkstra_algorithm, generate_shortest_paths
 
 
 class DijkstraAlgorithmTest(unittest.TestCase):

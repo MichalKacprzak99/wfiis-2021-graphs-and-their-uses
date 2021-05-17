@@ -8,12 +8,25 @@ from random import randint
 from grafy.project2.graph_randomization import create_graph_from_degree_sequence
 from grafy.project1.graph_visualization import visualize_graph
 from grafy.project1.graph_conversion import adj_list_to_matrix
-from typing import List, DefaultDict
+from typing import List, Dict, Tuple
 import copy
 
 
-# Function converting a graph into an int
-def get_edge_amount(graph: DefaultDict[int, list]) -> int:
+def get_edge_amount(graph: Dict[int, list]) -> int:
+    """
+    Get amount of edges in graph
+
+    Parameters
+    ----------
+    graph : dict
+        A dict that represents the graph
+
+    Returns
+    -------
+    int
+        Amount of edges in graph
+
+    """
     edge_number = 0
     for u in graph:
         for v in graph[u]:
@@ -21,9 +34,21 @@ def get_edge_amount(graph: DefaultDict[int, list]) -> int:
     return edge_number
 
 
-# Function checking if an edge is a bridge
-# A bridge is an edge that connects two parts of the graph
-def is_bridge(graph: DefaultDict[int, list]) -> int:
+def is_bridge(graph: Dict[int, list]) -> bool:
+    """
+    Check if graph has a bridge, which is an edge that links two parts of the graph
+
+    Parameters
+    ----------
+    graph : dict
+        A dict that represents the graph
+
+    Returns
+    -------
+    bool
+        A bool that tells us whether the edge is a bridge
+
+    """
     start = list(graph)[0]
     visited = {}
 
@@ -41,12 +66,37 @@ def is_bridge(graph: DefaultDict[int, list]) -> int:
     return list(visited.values()).count(1) != len(graph)
 
 
-# A function generating a graph based on the number for edges specified
-def get_euler_graph(n: int) -> List:
+def get_euler_graph(n: int, visualize: bool = False) -> List:
+    """
+    A function generating a Euler graph based on the number of edges specified
+
+    Parameters
+    ----------
+    n : int
+        Amount of edges specified
+    visualize: bool
+        Variable that specifies if the program should visualize a graph or not
+
+    Returns
+    -------
+    List
+        A list representing the Euler graph in form of an adjacency list
+
+    Raises
+    -------
+    ValueError
+        If n is equal or smaller than 0
+
+    """
+    if n <= 0:
+        raise ValueError("N has to be greater than 0")
+
     degree_sequence = [randint(1, int(n / 2)) * 2 for x in range(n)]
 
     graph_adj_list = create_graph_from_degree_sequence(degree_sequence)
-    visualize_graph(adj_list_to_matrix(graph_adj_list))
+
+    if visualize:
+        visualize_graph(adj_list_to_matrix(graph_adj_list))
 
     graph_copy = copy.copy(graph_adj_list)
     euler_cycle = []
@@ -75,9 +125,29 @@ def get_euler_graph(n: int) -> List:
     return euler_cycle
 
 
-# Print euler cycle
-# Add 1 to vertex numbers
-def print_euler_cycle(array: List) -> None:
-    result = ''.join('%s->' % str(x[0] + 1) for x in array)
-    result += str(array[-1][1] + 1)
-    print(result)
+def print_euler_cycle(array: List[Tuple[int, int]]):
+    """
+    Print the euler cycle. Function adds 1 to vertex numbers, so to represent real-life indexing, in Python we index
+    from 0, so the data provided has to represent that accordingly.
+
+    Parameters
+    ----------
+    array : List
+        A list that represents the euler graph as an adjacency list
+
+    Raises
+    ----------
+    IndexError
+        If length of list is 0
+
+    """
+    try:
+        result = ''.join('%s->' % str(x[0] + 1) for x in array)
+        result += str(array[-1][1] + 1)
+        print(result)
+    except IndexError:
+        raise IndexError("List needs to have more than 0 elements")
+
+
+if __name__ == "__main__":
+    print_euler_cycle(get_euler_graph(5, True))

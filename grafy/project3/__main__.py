@@ -1,6 +1,9 @@
+import sys
+sys.path.append('..')
+
 from connected_graph_generation import generate_connected_graph
 from dijkstra_algorithm import print_dijkstra_algorithm_result, dijkstra_algorithm
-from project1.graph_visualization import visualize_graph
+from grafy.project1.graph_visualization import visualize_graph
 from graph_center import find_graph_center, find_graph_minimax_center, generate_vertices_distance_matrix
 from kruskal_mst import kruskal_mst
 

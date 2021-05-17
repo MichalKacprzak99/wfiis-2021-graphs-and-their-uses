@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from graph_generation import generate_N_P_graph, generate_N_L_graph
 from graph_visualization import visualize_graph
 from graph_conversion import *
