@@ -147,9 +147,8 @@ def generate_regular_graph(vertices_number: int, k_degree: int):
     """
     if vertices_number >= k_degree + 1 and vertices_number * k_degree % 2 == 0:
         degree_sequence = [k_degree] * vertices_number
-
         adj_matrix = adj_list_to_matrix(randomize_graph(degree_sequence, 100))
-        visualize_graph(adj_matrix)
+        return adj_matrix
 
 
 if __name__ == "__main__":
