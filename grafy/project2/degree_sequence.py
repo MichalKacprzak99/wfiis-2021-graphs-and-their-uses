@@ -3,6 +3,20 @@ import random
 
 
 def degree_sequence_checker(a: list) -> bool:
+    """
+    Check if a degree sequence is a graphical graph
+
+    Parameters
+    ----------
+    a : list
+        The degree sequence the program evaluates
+
+    Returns
+    -------
+    bool
+        Boolean value representing whether the degree sequence is a graphical graph
+
+    """
     a = np.asarray(a)
     if a[a % 2 == 1].size % 2:
         return False
@@ -18,10 +32,11 @@ def degree_sequence_checker(a: list) -> bool:
         a[0] = 0
 
 
-exampleCorrect = [4, 2, 2, 3, 2, 1, 4, 2, 2, 2, 2]
-exampleCorrectFromLecture1 = [6, 4, 3, 2, 2, 2, 1, 1]
-exampleCorrectFromLecture2 = [6, 5, 4, 3, 2, 1, 1]
-exampleCorrectFromLecture3 = [6, 4, 3, 3, 2, 2, 2]
-exampleCorrectFromLecture0 = [4, 2, 3, 2, 3, 2]
-exampleWrong = [4, 4, 3, 3, 1, 2]
-print(degree_sequence_checker(exampleCorrectFromLecture3))
+if __name__ == "__main__":
+    exampleCorrect = [4, 2, 2, 3, 2, 1, 4, 2, 2, 2, 2]
+    exampleCorrectFromLecture1 = [6, 4, 3, 2, 2, 2, 1, 1]
+    exampleCorrectFromLecture2 = [6, 5, 4, 3, 2, 1, 1]
+    exampleCorrectFromLecture3 = [6, 4, 3, 3, 2, 2, 2]
+    exampleCorrectFromLecture0 = [4, 2, 3, 2, 3, 2]
+    exampleWrong = [4, 4, 3, 3, 1, 2]
+    print(degree_sequence_checker(exampleCorrectFromLecture3))
