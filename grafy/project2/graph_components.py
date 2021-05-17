@@ -14,11 +14,13 @@ def recursive_components(comp_number: int, vertex: int, graph: Dict[int, list], 
         A numpy array that represents the adjacency matrix
 
     vertex: int
+        Value that specifies from which vertex we traverse the graph
 
     graph: dict
+        A dict representing the graph we traverse
 
     comps: List[int]
-
+        A list of all components of the graph
     """
     for u in graph[vertex]:
         if comps[u] == -1:
