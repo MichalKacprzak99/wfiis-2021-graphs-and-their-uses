@@ -1,5 +1,5 @@
 import numpy as np
-from project1.graph_generation import generate_N_L_graph
+from grafy.project1.graph_generation import generate_N_L_graph
 
 
 def generate_connected_graph(vertices_number: int) -> np.ndarray:
@@ -21,9 +21,13 @@ def generate_connected_graph(vertices_number: int) -> np.ndarray:
         If vertices_number is less than 0
     """
     maximum_edges_number = vertices_number * (vertices_number - 1) // 2
-    minimum_edges_number = (vertices_number - 1) * (vertices_number - 2) // 2
+    minimum_edges_number = (vertices_number - 1) * (vertices_number - 2) // 2 + 1
 
-    edges_number = np.random.randint(minimum_edges_number, maximum_edges_number + 1)
+    try:
+        edges_number = np.random.randint(minimum_edges_number, maximum_edges_number + 1)
+    except ValueError:
+        raise ValueError("The number of vertices must be positive")
+
     graph = generate_N_L_graph(vertices_number, edges_number)
 
     def apply_weight(edge):

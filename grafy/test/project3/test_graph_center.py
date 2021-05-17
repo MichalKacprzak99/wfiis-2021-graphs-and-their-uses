@@ -1,7 +1,6 @@
 import unittest
 import numpy as np
-
-from project3.graph_center import find_graph_center, find_graph_minimax_center, generate_vertices_distance_matrix
+from grafy.project3.graph_center import find_graph_center, find_graph_minimax_center, generate_vertices_distance_matrix
 
 
 class GraphCenterTest(unittest.TestCase):

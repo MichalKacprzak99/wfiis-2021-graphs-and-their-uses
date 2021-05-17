@@ -1,8 +1,6 @@
 import unittest
 import numpy as np
-
-
-from project3.connected_graph_generation import generate_connected_graph
+from grafy.project3.connected_graph_generation import generate_connected_graph
 
 
 class ConnectedGraphGenerationTest(unittest.TestCase):
