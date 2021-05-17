@@ -20,7 +20,7 @@ def adj_matrix_to_list(adj_matrix: np.ndarray) -> dict:
 
     for index, item in np.ndenumerate(adj_matrix):
         row, column = index
-        if item == 1:
+        if item != 0:
             adjacency_list[row].append(column)
 
     return adjacency_list
