@@ -1,6 +1,5 @@
 import numpy as np
 from typing import List, Tuple
-import pretty_errors
 
 
 def init(vertices_number: int, start_vertex: int) -> Tuple[np.ndarray, np.ndarray]:
@@ -145,4 +144,4 @@ def print_dijkstra_algorithm_result(d_s: np.ndarray, p_s: np.ndarray):
     print("Shortest paths from start vertex to others\n")
     print(f"Start vertex: {start_vertex + 1}\n")
     for vertex, (length, path) in enumerate(zip(d_s, paths)):
-        print(f'vertex: {vertex + 1}; path length: {length}; path: {path}')
+        print(f'vertex: {vertex + 1:2.0f}; path length:{length:2.0f}; path: {path}')
