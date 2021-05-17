@@ -16,8 +16,8 @@ class CheckIfEulerTest(unittest.TestCase):
         self.assertRaisesRegex(ValueError, err_message, get_euler_graph, amount_of_vertices)
 
     def test_positive_amount_of_vertices_get_euler_graph(self):
-        amount_of_vertices = 2
-        is_generated = len(get_euler_graph(amount_of_vertices)) > 0
+        amount_of_vertices = 4
+        is_generated = len(get_euler_graph(amount_of_vertices, True)) > 0
         self.assertTrue(is_generated)
 
 

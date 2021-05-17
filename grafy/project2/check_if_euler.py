@@ -1,9 +1,3 @@
-# First:
-# take the n variable
-# create a degree sequence
-# generate a regular graph
-# randomize that graph until you get a euler cycle
-# if euler cycle received, list that euler cycle
 from random import randint
 from grafy.project2.graph_randomization import create_graph_from_degree_sequence
 from grafy.project1.graph_visualization import visualize_graph
@@ -32,6 +26,48 @@ def get_edge_amount(graph: Dict[int, list]) -> int:
         for v in graph[u]:
             edge_number += 1
     return edge_number
+
+
+def even_degree_nodes(graph: Dict[int, list]) -> List[int]:
+    """
+    Function that returns the amount of even nodes in a graph
+
+    Parameters
+    -----------
+    graph: Dict[int, list]
+        A dict representing a graph (adjacency list)
+
+    Returns
+    ----------
+    List[int]
+        Amount of even nodes in graph
+    """
+
+    even_nodes = []
+    for u in graph:
+        if len(graph[u]) % 2 == 0:
+            even_nodes.append(u)
+    return even_nodes
+
+
+def is_eulerian(even_nodes: List[int], graph_len: int):
+    """
+    Checks if a undirected graph is an Eulerian one
+
+    Parameters
+    -----------
+    even_nodes: List[int]
+        A list of even nodes in a graph
+    graph_len: int
+        The length of the whole graph
+
+    Returns
+    ---------
+    boolean
+        Whether the graph is Eulerian or not
+    """
+
+    return graph_len - len(even_nodes) == 0
 
 
 def is_bridge(graph: Dict[int, list]) -> bool:
@@ -85,15 +121,18 @@ def get_euler_graph(n: int, visualize: bool = False) -> List:
     Raises
     -------
     ValueError
-        If n is equal or smaller than 0
+        If n is equal or smaller than 2
 
     """
-    if n <= 0:
-        raise ValueError("N has to be greater than 0")
+    if n <= 2:
+        raise ValueError("N has to be greater than 2")
 
-    degree_sequence = [randint(1, int(n / 2)) * 2 for x in range(n)]
-
-    graph_adj_list = create_graph_from_degree_sequence(degree_sequence)
+    graph_adj_list = [4, 5, 5]
+    even_nodes = []
+    while is_eulerian(even_nodes, len(graph_adj_list)) is not True:
+        degree_sequence = [randint(1, int(n / 2)) * 2 for x in range(n)]
+        graph_adj_list = create_graph_from_degree_sequence(degree_sequence)
+        even_nodes = even_degree_nodes(graph_adj_list)
 
     if visualize:
         visualize_graph(adj_list_to_matrix(graph_adj_list))
@@ -150,4 +189,4 @@ def print_euler_cycle(array: List[Tuple[int, int]]):
 
 
 if __name__ == "__main__":
-    print_euler_cycle(get_euler_graph(5, True))
+    print_euler_cycle(get_euler_graph(4, True))
