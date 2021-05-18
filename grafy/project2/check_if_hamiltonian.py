@@ -2,9 +2,6 @@ class WrongInputException(Exception):
     pass
 
 
-# Global variable. True if given graph was hamiltonian. False by default.
-is_hamiltonian = False
-
 # Sample list from test script
 sample_adj_list = {
             0: [1, 3, 4],
@@ -18,18 +15,29 @@ sample_adj_list = {
 }
 
 
-def print_path(path: list):
+def read_path():
+    last_line = ''
+    with open("paths.txt", "r") as f:
+        for last_line in f:
+            pass
+    if last_line == '':
+        print("Could not find any cycles, thus the graph is not hamiltonian")
+    else:
+        print(last_line)
+
+
+def save_path(path: list):
     """
     Prints hamiltonian path into the terminal
-
         Parameters:
             path (list): possible path in hamiltonian graph
 
     """
-    print('[ ', end='')
-    for node in path:
-        print(str(node+1) + ' -> ', end='')
-    print(str(path[0]+1) + ' ]')
+    with open("paths.txt", "a") as f:
+        f.write('[')
+        for node in path:
+            f.write(str(node+1) + ' -> ')
+        f.write(str(path[0]+1) + ' ]\n')
 
 
 def check_if_hamiltonian(adj_list: dict, no_of_nodes: int, starting_node: int, visited_nodes: list, path: list):
@@ -44,16 +52,13 @@ def check_if_hamiltonian(adj_list: dict, no_of_nodes: int, starting_node: int, v
             path (list): current path
 
     """
-    global is_hamiltonian
 
     # Print path when all nodes have been visited and recently visited node connects to starting node
     if len(path) == no_of_nodes and path[0] in adj_list[path[no_of_nodes-1]]:
-        is_hamiltonian = True
-        print_path(path)
+        save_path(path)
 
     # Loop through associated nodes
     for node in adj_list[starting_node]:
-
         if not visited_nodes[node]:
             visited_nodes[node] = True
             path.append(node)
@@ -82,7 +87,8 @@ def check_number_of_nodes(adj_list: dict) -> int:
 def check_graph(adj_list: dict, starting_node=0):
     """
     Run function to check if given graph is hamiltonian.
-    Prints all possible paths.
+    Saves all possible paths to file "paths.txt".
+    Prints last path into the terminal.
 
         Parameters:
             adj_list (dict): adjacency list
@@ -102,9 +108,9 @@ def check_graph(adj_list: dict, starting_node=0):
     visited_nodes[starting_node] = True
 
     check_if_hamiltonian(adj_list, no_of_nodes, starting_node, visited_nodes, path)
-    if not is_hamiltonian:
-        print("Could not find any cycles, thus the graph is not hamiltonian")
+    read_path()
 
 
 if __name__ == "__main__":
     check_graph(sample_adj_list)
+    
