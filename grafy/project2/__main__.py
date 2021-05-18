@@ -8,6 +8,7 @@ from grafy.project2.check_if_hamiltonian import check_graph, sample_adj_list
 from grafy.project2.degree_sequence import degree_sequence_checker
 from grafy.project2.graph_components import find_biggest_graph_component
 from grafy.project2.graph_randomization import generate_regular_graph
+from grafy.project1.graph_visualization import visualize_graph
 
 
 if __name__ == "__main__":
@@ -39,4 +40,5 @@ if __name__ == "__main__":
     print_euler_cycle(get_euler_graph(5))
 
     print("Generate regular graph")
-    generate_regular_graph(8, 3)
+    regular_graph = generate_regular_graph(8, 3)
+    visualize_graph(regular_graph)
