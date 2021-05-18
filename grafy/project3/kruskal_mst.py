@@ -76,7 +76,7 @@ def print_result(tree: list) -> None:
     print("src --- w --- dst")
     for u, v, weight in tree:
         minimum_cost += weight
-        print("%d --- %d --- %d" % (u+1, weight, v+1))
+        print(str(u+1).rjust(3, ' ') + '   <--- ' + str(weight).rjust(3, ' ') + '   ---> ' + str(v+1).rjust(3, ' '))
     print("Minimum Spanning Tree Cost =", minimum_cost)
 
 
