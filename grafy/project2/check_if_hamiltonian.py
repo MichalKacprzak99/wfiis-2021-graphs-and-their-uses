@@ -16,6 +16,10 @@ sample_adj_list = {
 
 
 def read_path():
+    """
+    Reads last line from the paths.txt file.
+    If file is blank, prints appropriate message.
+    """
     last_line = ''
     with open("paths.txt", "r") as f:
         for last_line in f:
@@ -28,7 +32,7 @@ def read_path():
 
 def save_path(path: list):
     """
-    Prints hamiltonian path into the terminal
+    Saves hamiltonian path in paths.txt file
         Parameters:
             path (list): possible path in hamiltonian graph
 
