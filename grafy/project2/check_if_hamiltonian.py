@@ -106,3 +106,5 @@ def check_graph(adj_list: dict, starting_node=0):
         print("Could not find any cycles, thus the graph is not hamiltonian")
 
 
+if __name__ == "__main__":
+    check_graph(sample_adj_list)

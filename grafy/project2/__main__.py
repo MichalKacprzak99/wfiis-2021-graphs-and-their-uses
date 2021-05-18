@@ -9,25 +9,34 @@ from grafy.project2.degree_sequence import degree_sequence_checker
 from grafy.project2.graph_components import find_biggest_graph_component
 from grafy.project2.graph_randomization import generate_regular_graph
 
-check_graph(sample_adj_list)
-exampleCorrectFromLecture = [4, 2, 3, 2, 3, 2]
-print(degree_sequence_checker(exampleCorrectFromLecture))
-graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-             [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
-             [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-             [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-             ]
 
-adj_list = adj_matrix_to_list(graph_N_L)
+if __name__ == "__main__":
+    print("Check if hamilton cycle")
+    check_graph(sample_adj_list)
 
-find_biggest_graph_component(adj_list)
+    print("Check degree sequence")
+    exampleCorrectFromLecture = [4, 2, 3, 2, 3, 2]
+    print(degree_sequence_checker(exampleCorrectFromLecture))
 
-print_euler_cycle(get_euler_graph(5))
-generate_regular_graph(7, 2)
+    graph_N_L = [[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+                 [1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0],
+                 [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                 [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+                 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                 ]
+
+    adj_list = adj_matrix_to_list(graph_N_L)
+    print("Find biggest graph component")
+    find_biggest_graph_component(adj_list)
+
+    print("Find and print Euler cycle")
+    print_euler_cycle(get_euler_graph(5))
+
+    print("Generate regular graph")
+    generate_regular_graph(8, 3)
