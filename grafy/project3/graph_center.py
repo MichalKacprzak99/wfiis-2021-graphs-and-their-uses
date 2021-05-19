@@ -58,7 +58,7 @@ def find_graph_minimax_centers(graph_matrix: np.array) -> numpy.array:
         adjacency matrix of graph
     Returns
     -------
-    int
+    list
         minimax centers of graph
     """
     distance_matrix = generate_vertices_distance_matrix(graph_matrix)
