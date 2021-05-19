@@ -8,7 +8,7 @@ from connected_graph_generation import generate_connected_graph
 from dijkstra_algorithm import print_dijkstra_algorithm_result, dijkstra_algorithm
 from grafy.project1.graph_visualization import visualize_graph
 from graph_center import find_graph_centers, find_graph_minimax_centers, generate_vertices_distance_matrix
-from kruskal_mst import kruskal_mst
+from kruskal_mst import kruskal_mst, print_tree
 
 
 def print_array(arr):
@@ -37,5 +37,6 @@ if __name__ == "__main__":
     graph_minimax_center = find_graph_minimax_centers(random_connected_graph)
     print(f"Mnimax graph centers: {np.array2string(graph_minimax_center, precision=2, separator=', ')[1:-1]}\n")
     print("Minimal spanning tree")
-    kruskal_mst(random_connected_graph)
-    visualize_graph(random_connected_graph, weighted_graph=True)
+    tree = kruskal_mst(random_connected_graph)
+    print_tree(tree)
+    # visualize_graph(random_connected_graph, weighted_graph=True)

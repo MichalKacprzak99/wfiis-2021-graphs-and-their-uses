@@ -61,7 +61,7 @@ def get_vertices(graph: list) -> int:
     return vertices+1
 
 
-def print_result(tree: list) -> None:
+def print_tree(tree: list) -> None:
     """
     Prints MST results
 
@@ -122,16 +122,15 @@ def union(parent: list, rank: list, x: int, y: int) -> None:
         rank[x_root] += 1
 
 
-def kruskal_mst(adjacency_matrix: list) -> None:
+def kruskal_mst(adjacency_matrix: list) -> list:
     """
     Kruskal algorithm for finding minimum spanning tree.
-    Prints the resulting tree information in terminal.
 
         Parameters:
             adjacency_matrix (list): adjacency matrix graph representation
 
         Returns:
-            None
+            result_tree (list): minimum spanning  tree
     """
     if not validate_adjacency_matrix(adjacency_matrix):
         raise WrongInputException("Wrong input matrix")
@@ -174,8 +173,7 @@ def kruskal_mst(adjacency_matrix: list) -> None:
             e = e + 1
             result_tree.append([src, dst, w])
             union(parent, rank, x, y)
-
-    print_result(result_tree)
+    return result_tree
 
 
 def test_kruskal_mst() -> None:
