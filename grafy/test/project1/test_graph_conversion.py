@@ -1,6 +1,6 @@
 import unittest
 
-from project1.graph_conversion import *
+from grafy.project1.graph_conversion import *
 
 
 class TestGraphConversion(unittest.TestCase):

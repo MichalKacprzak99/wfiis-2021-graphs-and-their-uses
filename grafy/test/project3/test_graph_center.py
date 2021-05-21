@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from grafy.project3.graph_center import find_graph_center, find_graph_minimax_center, generate_vertices_distance_matrix
+from grafy.project3.graph_center import find_graph_centers, find_graph_minimax_centers, generate_vertices_distance_matrix
 
 
 class GraphCenterTest(unittest.TestCase):
@@ -28,11 +28,11 @@ class GraphCenterTest(unittest.TestCase):
 
     def test_graph_center(self):
         graph_center_test = 5
-        graph_center = find_graph_center(self.graph_matrix_test)
+        graph_center = find_graph_centers(self.graph_matrix_test)[0]
         self.assertEqual(graph_center, graph_center_test)
 
     def test_graph_minimax_center(self):
         graph_minimax_center_test = 5
-        graph_minimax_center = find_graph_minimax_center(self.graph_matrix_test)
+        graph_minimax_center = find_graph_minimax_centers(self.graph_matrix_test)[0]
         self.assertEqual(graph_minimax_center, graph_minimax_center_test)
 

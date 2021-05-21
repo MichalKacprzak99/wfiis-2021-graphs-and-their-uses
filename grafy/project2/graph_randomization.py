@@ -3,7 +3,6 @@ import random
 from typing import DefaultDict, List, Dict
 
 from grafy.project1.graph_conversion import adj_list_to_matrix
-from grafy.project1.graph_visualization import visualize_graph
 
 
 def create_graph_from_degree_sequence(degree_sequence: List[int]) -> Dict[int, list]:

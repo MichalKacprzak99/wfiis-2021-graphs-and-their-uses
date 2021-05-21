@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 
 
-from project1.graph_generation import generate_N_L_graph, generate_N_P_graph
+from grafy.project1.graph_generation import generate_N_L_graph, generate_N_P_graph
 
 
 class GraphGenerationTest(unittest.TestCase):

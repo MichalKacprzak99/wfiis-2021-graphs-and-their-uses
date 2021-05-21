@@ -2,7 +2,7 @@ import sys
 
 import numpy as np
 
-sys.path.append('..')
+sys.path.append('../..')
 
 from connected_graph_generation import generate_connected_graph
 from dijkstra_algorithm import print_dijkstra_algorithm_result, dijkstra_algorithm

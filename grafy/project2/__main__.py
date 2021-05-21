@@ -1,6 +1,5 @@
 import sys
-
-sys.path.append('..')
+sys.path.append('../..')
 
 from grafy.project1.graph_conversion import adj_matrix_to_list
 from grafy.project2.check_if_euler import get_euler_graph, print_euler_cycle
