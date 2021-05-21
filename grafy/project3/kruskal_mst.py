@@ -73,7 +73,7 @@ def print_tree(tree: list) -> None:
     """
     minimum_cost = 0
     print("Edges in the constructed tree")
-    print("src --- w --- dst")
+    print(" src  <---   w   --->  dst")
     for u, v, weight in tree:
         minimum_cost += weight
         print(str(u+1).rjust(3, ' ') + '   <--- ' + str(weight).rjust(3, ' ') + '   ---> ' + str(v+1).rjust(3, ' '))
