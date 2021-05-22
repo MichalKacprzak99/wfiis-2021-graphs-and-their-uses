@@ -3,7 +3,7 @@ import numpy as np
 
 def vertices_number_controller(graph_generator):
     def wrapper_vertices_number_controller(*args):
-        vertices_number, _ = args
+        vertices_number, *_ = args
         if vertices_number <= 0:
             raise ValueError("The number of vertices must be positive")
         return graph_generator(*args)
