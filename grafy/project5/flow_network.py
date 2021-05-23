@@ -38,18 +38,31 @@ def generate_flow_network(N: int) -> np.ndarray:
 
 
 def add_arcs_to_flow_network(graph: np.ndarray, nodes_in_layers: list, k: int) -> np.ndarray:
-    nodes = list(range(1, graph.shape[0]-1))
-    while k != 0:
-        arc_begin = np.random.choice(nodes, size=1)[0]
-        for layer, nodes_in_layer in enumerate(nodes_in_layers[1:-1], start=1):
-            if arc_begin in nodes_in_layer:
-                possible_arc_ends = nodes_in_layers[layer - 1] + nodes_in_layers[layer + 1]
-                possible_arc_ends = [node for node in possible_arc_ends if node not in [0, graph.shape[0]]]
-                arcs = [(x, y) for x in [arc_begin] for y in possible_arc_ends if graph[x][y] != 1]
-                if len(arcs) > 0:
-                    arc_to_add = np.random.choice(len(arcs), size=1)[0]
-                    graph[arcs[arc_to_add]] = 1
-                    k -= 1
+
+    # random arcs
+    graph_copy = graph.copy()
+    graph_copy[0][-1] = 1
+    graph_copy[-1][0] = 1
+    np.fill_diagonal(graph_copy, 1)
+    free_arcs = np.argwhere(graph_copy == 0)
+    arcs_indices = np.random.choice(free_arcs.shape[0], size=k)
+    arcs_to_add = free_arcs[arcs_indices]
+    graph[tuple(np.transpose(arcs_to_add))] = 1
+
+    # connecting only nodes in adjacent layers
+    # nodes = list(range(1, graph.shape[0]-1))
+    # while k != 0:
+    #     arc_begin = np.random.choice(nodes, size=1)[0]
+    #     for layer, nodes_in_layer in enumerate(nodes_in_layers[1:-1], start=1):
+    #         if arc_begin in nodes_in_layer:
+    #             possible_arc_ends = nodes_in_layers[layer - 1] + nodes_in_layers[layer + 1]
+    #             possible_arc_ends = [node for node in possible_arc_ends if node not in [0, graph.shape[0]]]
+    #             arcs = [(x, y) for x in [arc_begin] for y in possible_arc_ends if graph[x][y] != 1]
+    #             if len(arcs) > 0:
+    #                 arc_to_add = np.random.choice(len(arcs), size=1)[0]
+    #                 print(graph[arcs[arc_to_add]])
+    #                 graph[arcs[arc_to_add]] = 1
+    #                 k -= 1
     return graph
 
 
