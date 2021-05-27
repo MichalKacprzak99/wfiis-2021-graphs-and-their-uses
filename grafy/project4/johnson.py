@@ -30,8 +30,6 @@ def johnson(G: np.ndarray, w: np.ndarray):
 
     vertices_number, _ = G.shape
     g_prim, w_prim = add_s(G, w)
-    print(g_prim.shape)
-    print(w_prim.shape)
 
     distance = []
 

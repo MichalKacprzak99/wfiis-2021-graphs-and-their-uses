@@ -33,6 +33,8 @@ print("...after", counter, "tries.")
 print(" ")
 print(cycle_info)
 
+print(" ")
+print("Distance matrix:")
 D = johnson.johnson(adj_matrix, weighted_adj_matrix)
 for row in D:
     print(row)
