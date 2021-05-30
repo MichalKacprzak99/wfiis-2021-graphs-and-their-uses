@@ -1,22 +1,32 @@
-import itertools
-from pprint import pprint
-
 import numpy as np
 
 
 def generate_flow_network(N: int) -> np.ndarray:
+    """ Function generates random flow network with N layers between source and sink.
+    Each edge has a random capacity in the range(1,10)
+
+    Parameters
+    ----------
+    N : int
+        number of layers in flow network(excluding source and sink)
+
+    Returns
+    -------
+    np.ndarray
+        graph representation of the flow network - in form of a adjacency matrix
+    """
     layers = [1]
+
     for _ in range(N):
         layers.append(np.random.randint(2, N + 1))
+
     layers.append(1)
+
     last_node = 0
     nodes_in_layers = []
     for layer in layers:
-        nodes = []
-        for node in range(last_node, layer + last_node):
-            nodes.append(node)
-        nodes_in_layers.append(nodes)
-        last_node = nodes[-1] + 1
+        nodes_in_layers.append(list(range(last_node, layer + last_node)))
+        last_node += layer
 
     nodes_number = sum(layers)
     graph = np.zeros((nodes_number, nodes_number), np.int)
@@ -31,23 +41,36 @@ def generate_flow_network(N: int) -> np.ndarray:
                 arcs_begin = np.random.choice(nodes_in_layer, size=1)[0]
                 graph[arcs_begin][node] = 1
 
-    pprint(graph)
     graph = add_arcs_to_flow_network(graph, nodes_in_layers, 2 * N)
     graph = apply_capacity_to_flow_network(graph, 1, 10)
     return graph
 
 
-def add_arcs_to_flow_network(graph: np.ndarray, nodes_in_layers: list, k: int) -> np.ndarray:
+# TODO - to fix
+def add_arcs_to_flow_network(flow_network: np.ndarray, nodes_in_layers: list, k: int) -> np.ndarray:
+    """ Function adds k random arcs to flow network
 
+    Parameters
+    ----------
+    flow_network : np.ndarray
+        flow network as adjacency matrix
+    nodes_in_layers :
+    k : int
+        number of arcs to add
+    Returns
+    -------
+    np.ndarray
+        graph representation of the flow network - in form of a adjacency matrix
+    """
     # random arcs
-    graph_copy = graph.copy()
+    graph_copy = flow_network.copy()
     graph_copy[0][-1] = 1
     graph_copy[-1][0] = 1
     np.fill_diagonal(graph_copy, 1)
     free_arcs = np.argwhere(graph_copy == 0)
     arcs_indices = np.random.choice(free_arcs.shape[0], size=k)
     arcs_to_add = free_arcs[arcs_indices]
-    graph[tuple(np.transpose(arcs_to_add))] = 1
+    flow_network[tuple(np.transpose(arcs_to_add))] = 1
 
     # connecting only nodes in adjacent layers
     # nodes = list(range(1, graph.shape[0]-1))
@@ -63,10 +86,27 @@ def add_arcs_to_flow_network(graph: np.ndarray, nodes_in_layers: list, k: int) -
     #                 print(graph[arcs[arc_to_add]])
     #                 graph[arcs[arc_to_add]] = 1
     #                 k -= 1
-    return graph
+    return flow_network
 
 
-def apply_capacity_to_flow_network(graph: np.ndarray, min_capacity, max_capacity) -> np.ndarray:
+def apply_capacity_to_flow_network(flow_network: np.ndarray, min_capacity: int, max_capacity: int) -> np.ndarray:
+    """ Apply random capacity to each arc in flow network in range(min_capacity, max_capacity)
+
+    Parameters
+    ----------
+    flow_network : np.ndarray
+        flow network as adjacency matrix
+    min_capacity : int
+        minimum capacity of arc in flow network
+    max_capacity : int
+        maximum capacity of arc in flow network
+
+    Returns
+    -------
+    np.ndarray
+        graph representation of the flow network - in form of a adjacency matrix with applied capacity
+    """
+
     def apply_capacity(edge):
         if edge == 1:
             return np.random.randint(min_capacity, max_capacity + 1)
@@ -74,6 +114,6 @@ def apply_capacity_to_flow_network(graph: np.ndarray, min_capacity, max_capacity
             return edge
 
     apply_capacity = np.vectorize(apply_capacity)
-    graph = apply_capacity(graph)
+    flow_network = apply_capacity(flow_network)
 
-    return graph
+    return flow_network
