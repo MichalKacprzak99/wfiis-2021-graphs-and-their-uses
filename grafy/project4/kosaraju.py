@@ -1,6 +1,8 @@
 import numpy as np
-from grafy.project1.graph_conversion import adj_matrix_to_list
+
 from typing import DefaultDict
+
+from grafy.project1.graph_conversion import adj_matrix_to_list
 
 
 def kosaraju(G: np.ndarray) -> np.ndarray:

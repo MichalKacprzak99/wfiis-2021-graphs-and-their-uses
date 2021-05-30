@@ -1,7 +1,9 @@
+import functools
 import numpy as np
 
 
 def vertices_number_controller(graph_generator):
+    @functools.wraps(graph_generator)
     def wrapper_vertices_number_controller(*args):
         vertices_number, *_ = args
         if vertices_number <= 0:

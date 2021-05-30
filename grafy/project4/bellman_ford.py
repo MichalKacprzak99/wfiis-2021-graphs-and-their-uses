@@ -1,9 +1,11 @@
-import numpy as np
-from grafy.project3.dijkstra_algorithm import init, relax
-from grafy.project1 import graph_conversion
-from typing import Tuple, Union, List, Dict
 import copy
 import random
+import numpy as np
+
+from typing import Tuple, Union, List, Dict
+
+from grafy.project3.dijkstra_algorithm import init, relax
+from grafy.project1 import graph_conversion
 
 
 def matrix_assign_weights(adj_matrix: np.ndarray) -> np.ndarray:

@@ -1,10 +1,8 @@
-import copy
+import numpy as np
+
 from typing import Tuple
 
-import numpy as np
-import random
 from grafy.project4 import bellman_ford
-from grafy.project1 import graph_conversion
 from grafy.project3 import dijkstra_algorithm
 
 
@@ -31,8 +29,6 @@ def johnson(G: np.ndarray, w: np.ndarray):
     vertices_number, _ = G.shape
     g_prim, w_prim = add_s(G, w)
 
-    distance = []
-
     w_dashed = np.zeros((vertices_number + 1, vertices_number + 1))
 
     h = bellman_ford.bellman_ford(g_prim, w_prim, vertices_number)
@@ -46,7 +42,7 @@ def johnson(G: np.ndarray, w: np.ndarray):
             if g_prim[u][v] == 1:
                 w_dashed[u][v] = w_prim[u][v] + h[1][u] - h[1][v]
 
-    D = [[] for i in range(vertices_number)]
+    D = [[] for _ in range(vertices_number)]
 
     for u in range(vertices_number):
         D[u].extend(0 for _ in range(vertices_number))
