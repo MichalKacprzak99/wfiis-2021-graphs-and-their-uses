@@ -37,5 +37,6 @@ W pliku `__main__.py` znajduje się przykładowe użycie zaimplementowanych funk
 * Zastosowanie algorytmu Forda-Fulkersona do znalezienia maksymalnego
 przepływu na sieci
   ```python
-
+  from grafy.project5.ford_fulkerson import ford_fulkerson
+  max_flow_network = ford_fulkerson(flow_network, 0, 5)
   ```
