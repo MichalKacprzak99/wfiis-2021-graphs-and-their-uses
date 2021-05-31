@@ -36,9 +36,9 @@ def bellman_ford(G: np.ndarray, w: np.ndarray, s: int) -> Tuple[bool, np.ndarray
     Parameters
     ----------
     G: np.ndarray
-        A numpy array representing the graph we want to analyze
+        A numpy array representing a adjacency matrix
     w: np.ndarray
-        A weighted numpy array we access weight values from
+        A numpy array representing a weighted adjacency matrix
     s: int
         The number of the starting node
 

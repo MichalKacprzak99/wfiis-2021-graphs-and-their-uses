@@ -1,12 +1,27 @@
 import numpy as np
 
-from typing import Tuple
+from typing import Tuple, List
 
 from grafy.project4 import bellman_ford
 from grafy.project3 import dijkstra_algorithm
 
 
 def add_s(G: np.ndarray, w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    """Function adding additional node s to graph
+
+    Parameters
+    ----------
+    G: np.ndarray
+        A numpy array representing a adjacency matrix
+    w: np.ndarray
+        A numpy array representing a weighted adjacency matrix
+
+    Returns
+    -------
+    Tuple[np.ndarray, np.ndarray]
+        Tuple containing modified G and w arrays with additional node
+
+    """
     vertices_number, _ = G.shape
     w_prim = np.zeros((vertices_number + 1, vertices_number + 1))
     g_prim = np.zeros((vertices_number + 1, vertices_number + 1))
@@ -24,7 +39,27 @@ def add_s(G: np.ndarray, w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     return g_prim, w_prim
 
 
-def johnson(G: np.ndarray, w: np.ndarray):
+def johnson(G: np.ndarray, w: np.ndarray) -> List[List]:
+    """Function generating distance matrix for weighted graph
+
+    Parameters
+    ----------
+    G: np.ndarray
+        A numpy array representing a adjacency matrix
+    w: np.ndarray
+        A numpy array representing a weighted adjacency matrix
+
+    Returns
+    -------
+    List[List]
+        2D list representing the distance matrix
+
+    Raises
+    --------
+    ValueError
+        When a negative cycle has been found in the array
+
+    """
 
     vertices_number, _ = G.shape
     g_prim, w_prim = add_s(G, w)
@@ -34,8 +69,7 @@ def johnson(G: np.ndarray, w: np.ndarray):
     h = bellman_ford.bellman_ford(g_prim, w_prim, vertices_number)
 
     if h[0] is False:
-        print('A negative cycle has been found in the graph. The algorithm cannot proceed')
-        return
+        raise ValueError('A negative cycle has been found in the graph. The algorithm cannot proceed')
 
     for u in range(vertices_number + 1):
         for v in range(vertices_number + 1):
