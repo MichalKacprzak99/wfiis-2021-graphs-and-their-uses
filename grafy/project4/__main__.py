@@ -13,7 +13,7 @@ adj_matrix = digraph_generation.generate_N_P_digraph(7, 0.5)
 print(adj_matrix)
 graph_connected_components = kosaraju.kosaraju(adj_matrix)
 
-weighted_adj_matrix = bellman_ford.matrix_assign_weights(adj_matrix)
+weighted_adj_matrix = bellman_ford.assign_weights_to_adj_matrix(adj_matrix)
 cycle_info = bellman_ford.bellman_ford(adj_matrix, weighted_adj_matrix, 0)
 counter = 1
 
@@ -21,7 +21,7 @@ while all(graph_connected_components == 1) != 1 or cycle_info[0] is not True:
     adj_matrix = digraph_generation.generate_N_P_digraph(7, 0.5)
     graph_connected_components = kosaraju.kosaraju(adj_matrix)
 
-    weighted_adj_matrix = bellman_ford.matrix_assign_weights(adj_matrix)
+    weighted_adj_matrix = bellman_ford.assign_weights_to_adj_matrix(adj_matrix)
     cycle_info = bellman_ford.bellman_ford(adj_matrix, weighted_adj_matrix, 0)
     counter = counter + 1
 
