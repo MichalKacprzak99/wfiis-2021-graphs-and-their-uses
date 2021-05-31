@@ -1,5 +1,5 @@
 from grafy.project5.flow_network import generate_flow_network
-from grafy.project5.ford_fulkerson import ford_fulkerson
+from grafy.project5.ford_fulkerson import ford_fulkerson_algorithm
 from grafy.project5.visualize_flow_network import visualize_flow_network
 
 
@@ -14,13 +14,12 @@ def print_array(arr):
 
 
 if __name__ == '__main__':
-    flow_network, layers = generate_flow_network(N=0)
+    flow_network, layers = generate_flow_network(N=4)
     print("Flow network as adjacency matrix:\n")
     print_array(flow_network)
 
-    max_flow_network = ford_fulkerson(flow_network, 0, 5)
+    max_flow_network = ford_fulkerson_algorithm(flow_network, 0, 5)
     print("Max Flow in network as adjacency matrix:\n")
-    print_array(flow_network)
+    print_array(max_flow_network)
 
-    visualize_flow_network(flow_network, layers)
-
+    visualize_flow_network(flow_network, layers, max_flow_network)

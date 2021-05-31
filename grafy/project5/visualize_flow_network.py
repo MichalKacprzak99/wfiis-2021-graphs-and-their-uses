@@ -30,7 +30,7 @@ def visualize_flow_network(flow_network: np.ndarray, layers: List[list], max_flo
         edge_labels = dict([((n1, n2), f'{flow_network[n1][n2]}')
                             for n1, n2, d in G.edges])
     else:
-        edge_labels = dict([((n1, n2), f'{max_flow[n1][n2]}/{flow_network[n1][n2]}')
+        edge_labels = dict([((n1, n2), f'{flow_network[n1][n2]}/{max_flow[n1][n2]}')
                             for n1, n2, d in G.edges])
 
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=8, label_pos=0.6)
