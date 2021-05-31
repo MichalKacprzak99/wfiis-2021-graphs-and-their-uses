@@ -1,14 +1,36 @@
-sample_graph = [[0, 10, 5, 0, 0, 0],
- [0, 0, 0, 9, 4, 0],
- [0, 0, 0, 2, 0, 0],
- [0, 0, 0, 0, 3, 9],
- [0, 8, 0, 0, 0, 9],
- [0, 0, 0, 1, 4, 0]]
+import copy
+
+ex_sample_graph = [
+    [0, 10, 3, 6, 0, 0, 0, 0, 0, 0, 0], #s
+    [0, 0, 8, 0, 8, 6, 0, 0, 0, 0, 0], #a
+    [0, 0, 0, 0, 0, 2, 10, 0, 0, 0, 0], #b
+    [0, 0, 0, 0, 9, 0, 1, 0, 0, 0, 0], #c
+    [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0], #d
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 7, 0], #e
+    [0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0], #f
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7], #g
+    [0, 0, 0, 0, 0, 0, 8, 1, 0, 0, 5], #h
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7], #i
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], #t
+]
 
 
-def bfs(graph, row, s, t, parent):
+def print_net_flow(graph: list):
+    for row in graph:
+        print(row)
+
+
+def sum_matrix(m1: list, m2: list):
+    res_mat = m1
+    for i in range(0, len(m2)):
+        for j in range(0, len(m2)):
+            res_mat[i][j] += m2[i][j]
+    return res_mat
+
+
+def bfs(graph: list, row: int, s: int, t: int, parent: list) -> bool:
     """
-      BFS algorithm for fining shortest path between two nodes.
+      BFS algorithm for finding shortest path between two nodes.
 
            Parameters:
                graph (list): matrix representation of generated flow network
@@ -30,7 +52,7 @@ def bfs(graph, row, s, t, parent):
         u = queue.pop(0)
 
         for ind, val in enumerate(graph[u]):
-            if visited[ind] == False and val > 0:
+            if visited[ind] is False and val > 0:
                 queue.append(ind)
                 visited[ind] = True
                 parent[ind] = u
@@ -38,7 +60,7 @@ def bfs(graph, row, s, t, parent):
     return True if visited[t] else False
 
 
-def ford_fulkerson(graph, source, sink):
+def ford_fulkerson(graph: list, source: int, sink: int) -> list:
     """
         Ford-Fulkerson's algorithm.
         Prints Max Flow into terminal.
@@ -75,14 +97,36 @@ def ford_fulkerson(graph, source, sink):
     return graph
 
 
-def test_ford_fulkerson_algo():
+def ford_fulkerson_algorithm(graph: list, source: int, sink: int) -> list:
+    """
+    Parameters:
+               graph (list): matrix representation of generated flow network
+               source (int): flow network's source
+               sink (int): flow network's sink
+
+           Returns:
+               graph (list): modified matrix representation of flow network
+    """
+    tmp = copy.deepcopy(graph)
+    ford_fulkerson(tmp, source, sink)
+    res_graph = sum_matrix(tmp, graph)
+    print_net_flow(res_graph)
+    return res_graph
+
+
+def test_ford_fulkerson_algo() -> list:
     """
       Test Ford-Fulkerson's algorithm.
       Executes the algorithm using sample data.
     """
     source = 0
-    sink = 5
-    print(ford_fulkerson(sample_graph, source, sink))
-    print(sample_graph)
+    sink = 10
+    net_tmp = copy.deepcopy(ex_sample_graph)
+    net = ford_fulkerson(ex_sample_graph, source, sink)
+    print("Result: ")
+    res_graph = sum_matrix(net_tmp, net)
+    print_net_flow(res_graph)
+    return res_graph
 
 # test_ford_fulkerson_algo()
+# ford_fulkerson_algorithm(ex_sample_graph, 0, 10)
