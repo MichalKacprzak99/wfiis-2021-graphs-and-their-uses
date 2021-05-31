@@ -1,7 +1,9 @@
 import numpy as np
 
+from typing import List, Tuple
 
-def generate_flow_network(N: int) -> np.ndarray:
+
+def generate_flow_network(N: int) -> Tuple[np.ndarray, List[list]]:
     """ Function generates random flow network with N layers between source and sink.
     Each edge has a random capacity in the range(1,10)
 
@@ -12,8 +14,9 @@ def generate_flow_network(N: int) -> np.ndarray:
 
     Returns
     -------
-    np.ndarray
-        graph representation of the flow network - in form of a adjacency matrix
+    Tuple[np.ndarray, List[list]]
+        Tuple with graph representation of the flow network - in form of a adjacency matrix
+        and layers of flow network
     """
     layers = [1]
 
@@ -43,7 +46,7 @@ def generate_flow_network(N: int) -> np.ndarray:
 
     graph = add_arcs_to_flow_network(graph, nodes_in_layers, 2 * N)
     graph = apply_capacity_to_flow_network(graph, 1, 10)
-    return graph
+    return graph, nodes_in_layers
 
 
 # TODO - to fix
@@ -64,8 +67,9 @@ def add_arcs_to_flow_network(flow_network: np.ndarray, nodes_in_layers: list, k:
     """
     # random arcs
     graph_copy = flow_network.copy()
-    graph_copy[0][-1] = 1
-    graph_copy[-1][0] = 1
+    graph_copy[:, 0] = 1
+    graph_copy[-1, :] = 1
+
     np.fill_diagonal(graph_copy, 1)
     free_arcs = np.argwhere(graph_copy == 0)
     arcs_indices = np.random.choice(free_arcs.shape[0], size=k)
