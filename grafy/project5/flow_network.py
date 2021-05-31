@@ -1,9 +1,11 @@
+from itertools import islice
+
 import numpy as np
 
 from typing import List, Tuple
 
 
-def generate_flow_network(N: int) -> Tuple[np.ndarray, List[list]]:
+def generate_flow_network(N: int, min_capacity: int, max_capacity: int) -> Tuple[np.ndarray, List[list]]:
     """ Function generates random flow network with N layers between source and sink.
     Each edge has a random capacity in the range(1,10)
 
@@ -11,6 +13,11 @@ def generate_flow_network(N: int) -> Tuple[np.ndarray, List[list]]:
     ----------
     N : int
         number of layers in flow network(excluding source and sink)
+
+    min_capacity : int
+        minimum capacity of arc in flow network
+    max_capacity : int
+        maximum capacity of arc in flow network
 
     Returns
     -------
@@ -25,13 +32,9 @@ def generate_flow_network(N: int) -> Tuple[np.ndarray, List[list]]:
 
     layers.append(1)
 
-    last_node = 0
-    nodes_in_layers = []
-    for layer in layers:
-        nodes_in_layers.append(list(range(last_node, layer + last_node)))
-        last_node += layer
-
     nodes_number = sum(layers)
+    nodes = iter(range(nodes_number))
+    nodes_in_layers = [list(islice(nodes, layer)) for layer in layers]
     graph = np.zeros((nodes_number, nodes_number), np.int)
 
     for layer, nodes_in_layer in enumerate(nodes_in_layers[:-1]):
@@ -45,7 +48,7 @@ def generate_flow_network(N: int) -> Tuple[np.ndarray, List[list]]:
                 graph[arcs_begin][node] = 1
 
     graph = add_arcs_to_flow_network(graph, nodes_in_layers, 2 * N)
-    graph = apply_capacity_to_flow_network(graph, 1, 10)
+    graph = apply_capacity_to_flow_network(graph, min_capacity, max_capacity)
     return graph, nodes_in_layers
 
 

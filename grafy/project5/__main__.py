@@ -14,7 +14,7 @@ def print_array(arr):
 
 
 if __name__ == '__main__':
-    flow_network, layers = generate_flow_network(N=4)
+    flow_network, layers = generate_flow_network(4, 1, 10)
     print("Flow network as adjacency matrix:\n")
     print_array(flow_network)
 
