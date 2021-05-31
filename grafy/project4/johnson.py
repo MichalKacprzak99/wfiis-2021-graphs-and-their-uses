@@ -39,7 +39,7 @@ def add_s(G: np.ndarray, w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     return g_prim, w_prim
 
 
-def johnson(G: np.ndarray, w: np.ndarray) -> List[List]:
+def johnson(G: np.ndarray, w: np.ndarray) -> List[np.ndarray]:
     """Function generating distance matrix for weighted graph
 
     Parameters
@@ -52,7 +52,7 @@ def johnson(G: np.ndarray, w: np.ndarray) -> List[List]:
     Returns
     -------
     List[List]
-        2D list representing the distance matrix
+        2D array representing the distance matrix
 
     Raises
     --------
@@ -76,10 +76,9 @@ def johnson(G: np.ndarray, w: np.ndarray) -> List[List]:
             if g_prim[u][v] == 1:
                 w_dashed[u][v] = w_prim[u][v] + h[1][u] - h[1][v]
 
-    D = [[] for _ in range(vertices_number)]
+    D = [np.zeros(vertices_number) for _ in range(vertices_number)]
 
     for u in range(vertices_number):
-        D[u].extend(0 for _ in range(vertices_number))
 
         distance = dijkstra_algorithm.dijkstra_algorithm(w_dashed, u + 1)[0]
         for v in range(vertices_number):
