@@ -55,7 +55,7 @@ def bfs(graph: np.ndarray, row: int, s: int, t: int, parent: list) -> bool:
     return True if visited[t] else False
 
 
-def ford_fulkerson(graph: np.ndarray, source: int, sink: int) -> np.ndarray:
+def ford_fulkerson_algorithm(graph: np.ndarray, source: int, sink: int) -> np.ndarray:
     """
         Ford-Fulkerson's algorithm.
         Prints Max Flow into terminal.
@@ -69,20 +69,20 @@ def ford_fulkerson(graph: np.ndarray, source: int, sink: int) -> np.ndarray:
                graph (np.ndarray): modified matrix representation of flow network
     """
 
-    tmp_graph = copy.deepcopy(graph)
-    row = len(tmp_graph)
+    residual_graph = copy.deepcopy(graph)
+    row = len(residual_graph)
     parent = [-1] * row
     max_flow = 0
     
     if source == sink or sink < 0 or source < 0 or source >= row or sink >= row:
       raise WrongInputException('Wrong input source/sink vertice(s)')
 
-    while bfs(tmp_graph, row, source, sink, parent):
+    while bfs(residual_graph, row, source, sink, parent):
 
         path_flow = float("Inf")
         s = sink
         while s != source:
-            path_flow = min(path_flow, tmp_graph[parent[s]][s])
+            path_flow = min(path_flow, residual_graph[parent[s]][s])
             s = parent[s]
 
         max_flow += path_flow
@@ -90,12 +90,12 @@ def ford_fulkerson(graph: np.ndarray, source: int, sink: int) -> np.ndarray:
         v = sink
         while v != source:
             u = parent[v]
-            tmp_graph[u][v] -= path_flow
-            tmp_graph[v][u] += path_flow
+            residual_graph[u][v] -= path_flow
+            residual_graph[v][u] += path_flow
             v = parent[v]
     print("Max flow: %d" % max_flow)
-    res_graph = tmp_graph + graph
-    return res_graph
+
+    return residual_graph
 
 
 def test_ford_fulkerson_algo() -> np.ndarray:
@@ -103,7 +103,7 @@ def test_ford_fulkerson_algo() -> np.ndarray:
       Test Ford-Fulkerson's algorithm.
       Executes the algorithm using sample data.
     """
-    res = ford_fulkerson(np.array(ex_sample_graph), 0, 10)
+    res = ford_fulkerson_algorithm(np.array(ex_sample_graph), 0, 10)
     print("Result: ")
     print(res)
     return res
