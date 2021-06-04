@@ -14,12 +14,13 @@ def print_array(arr):
 
 
 if __name__ == '__main__':
-    flow_network, layers = generate_flow_network(4, 1, 10)
+    flow_network, layers = generate_flow_network(2, 1, 10)
     print("Flow network as adjacency matrix:\n")
     print_array(flow_network)
-
+    visualize_flow_network(flow_network, layers)
     max_flow_network = ford_fulkerson_algorithm(flow_network, 0, 5)
     print("Max Flow in network as adjacency matrix:\n")
     print_array(max_flow_network)
 
     visualize_flow_network(flow_network, layers, max_flow_network)
+

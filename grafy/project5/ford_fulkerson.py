@@ -1,4 +1,5 @@
 import copy
+
 import numpy as np
 
 
@@ -7,17 +8,17 @@ class WrongInputException(Exception):
 
 
 ex_sample_graph = [
-    [0, 10, 3, 6, 0, 0, 0, 0, 0, 0, 0], #s
-    [0, 0, 8, 0, 8, 6, 0, 0, 0, 0, 0], #a
-    [0, 0, 0, 0, 0, 2, 10, 0, 0, 0, 0], #b
-    [0, 0, 0, 0, 9, 0, 1, 0, 0, 0, 0], #c
-    [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0], #d
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 7, 0], #e
-    [0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0], #f
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7], #g
-    [0, 0, 0, 0, 0, 0, 8, 1, 0, 0, 5], #h
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7], #i
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], #t
+    [0, 10, 3, 6, 0, 0, 0, 0, 0, 0, 0],  # s
+    [0, 0, 8, 0, 8, 6, 0, 0, 0, 0, 0],  # a
+    [0, 0, 0, 0, 0, 2, 10, 0, 0, 0, 0],  # b
+    [0, 0, 0, 0, 9, 0, 1, 0, 0, 0, 0],  # c
+    [0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0],  # d
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 7, 0],  # e
+    [0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0],  # f
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],  # g
+    [0, 0, 0, 0, 0, 0, 8, 1, 0, 0, 5],  # h
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],  # i
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # t
 ]
 
 
@@ -73,9 +74,9 @@ def ford_fulkerson_algorithm(graph: np.ndarray, source: int, sink: int) -> np.nd
     row = len(residual_graph)
     parent = [-1] * row
     max_flow = 0
-    
+
     if source == sink or sink < 0 or source < 0 or source >= row or sink >= row:
-      raise WrongInputException('Wrong input source/sink vertice(s)')
+        raise WrongInputException('Wrong input source/sink vertice(s)')
 
     while bfs(residual_graph, row, source, sink, parent):
 
@@ -107,4 +108,3 @@ def test_ford_fulkerson_algo() -> np.ndarray:
     print("Result: ")
     print(res)
     return res
-
