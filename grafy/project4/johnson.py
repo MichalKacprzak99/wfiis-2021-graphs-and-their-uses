@@ -80,7 +80,7 @@ def johnson(G: np.ndarray, w: np.ndarray) -> List[np.ndarray]:
 
     for u in range(vertices_number):
 
-        distance = dijkstra_algorithm.dijkstra_algorithm(w_dashed, u + 1)[0]
+        distance = dijkstra_algorithm(w_dashed, u + 1)[0]
         for v in range(vertices_number):
             D[u][v] = distance[v] - h[1][u] + h[1][v]
 
