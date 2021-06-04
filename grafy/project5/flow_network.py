@@ -25,7 +25,10 @@ def generate_flow_network(N: int, min_capacity: int, max_capacity: int) -> Tuple
         Tuple with graph representation of the flow network - in form of a adjacency matrix
         and layers of flow network
     """
-
+    if N < 0:
+        raise ValueError("Number of layers must be positive")
+    if min_capacity >= max_capacity:
+        raise ValueError("Minimum capacity of arcs in flow network must be smaller than maximum capacity")
     layers = [1]
 
     for _ in range(N):
