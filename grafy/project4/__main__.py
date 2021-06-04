@@ -47,4 +47,4 @@ print("Distance matrix:")
 D = johnson.johnson(adj_matrix, weighted_adj_matrix)
 for row in D:
     print(row)
-graph_visualization.visualize_graph(weighted_adj_matrix, True, True)
+graph_visualization.visualize_weighted_graph(adj_matrix, weighted_adj_matrix, True)

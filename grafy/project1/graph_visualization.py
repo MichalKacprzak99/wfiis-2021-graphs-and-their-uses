@@ -1,27 +1,17 @@
 import math
 import random as rand
+from typing import Tuple, List, Any
+
 import numpy as np
 from vpython import *
 
 
-def visualize_graph(graph_by_matrix: np.ndarray, weighted_graph: bool = False, digraph: bool = False):
-    """Method to visualize graph using vPython
-
-        Parameters:
-        graph_by_matrix (np.ndarray): graph given by matrix
-        weighted_graph (bool): flag to determine if graph is weighted
-        digraph (bool): flag to determine if graph is directed
-
-        Returns:
-        None
-
-       """
+def __preparation(graph_by_matrix: np.ndarray, rfactor: float, radius: float) -> Tuple[
+    List[Tuple[Any, Any]], List[sphere]]:
     canvas(width=1000, height=800)
 
     (vertexNumber, vertexNumber) = graph_by_matrix.shape
 
-    rfactor = 40
-    radius = -(1 / 4) * vertexNumber + 50
     vertices = []
     r = rfactor * vertexNumber + 100
     x0 = 0
@@ -36,7 +26,28 @@ def visualize_graph(graph_by_matrix: np.ndarray, weighted_graph: bool = False, d
                                color=vec(rand.random(), rand.random(), rand.random())))
 
     result = np.where(graph_by_matrix != 0)
-    listaa = list(zip(result[0], result[1]))
+    return list(zip(result[0], result[1])), vertices
+
+
+def visualize_weighted_graph(graph_by_matrix: np.ndarray, weighted_matrix: np.ndarray, digraph: bool = False) -> None:
+    """Method to visualize weighted graph using vPython
+
+        Parameters:
+        graph_by_matrix (np.ndarray): graph given by matrix
+        weighted_matrix (np.ndarray): weights of graph (in case of 0 weight)
+        digraph (bool): flag to determine if graph is directed
+
+        Returns:
+        None
+
+       """
+    (vertexNumber, vertexNumber) = graph_by_matrix.shape
+
+    rfactor = 40
+    radius = -(1 / 4) * vertexNumber + 50
+
+    listaa, vertices = __preparation(graph_by_matrix, rfactor, radius)
+
     if not digraph:
         listaa = np.sort(listaa)
     for (first, second) in listaa:
@@ -44,12 +55,47 @@ def visualize_graph(graph_by_matrix: np.ndarray, weighted_graph: bool = False, d
         line_axis_normalized = line_axis.norm()
 
         rand_color = vec(rand.random(), rand.random(), rand.random())
-        if weighted_graph:
-            label(pos=vertices[first].pos + line_axis_normalized * line_axis.mag * 2 / 3,
-                  opacity=1.0,
-                  text=str(graph_by_matrix[first][second]),
-                  background=rand_color,
-                  box=False)
+        label(pos=vertices[first].pos + line_axis_normalized * line_axis.mag * 2 / 3,
+              opacity=1.0,
+              text=str(weighted_matrix[first][second]),
+              background=rand_color,
+              box=False)
+        if digraph:
+            arrow(pos=vertices[second].pos - 1.9 * radius * line_axis_normalized,
+                  axis=line_axis_normalized,
+                  shaftwidth=20,
+                  headwidth=40,
+                  headlength=radius,
+                  length=radius,
+                  color=rand_color)
+
+        curve(vertices[first].pos, vertices[second].pos, color=rand_color)
+
+
+def visualize_graph(graph_by_matrix: np.ndarray, digraph: bool = False) -> None:
+    """Method to visualize graph using vPython
+
+        Parameters:
+        graph_by_matrix (np.ndarray): graph given by matrix
+        digraph (bool): flag to determine if graph is directed
+
+        Returns:
+        None
+
+       """
+    (vertexNumber, vertexNumber) = graph_by_matrix.shape
+
+    rfactor = 40
+    radius = -(1 / 4) * vertexNumber + 50
+
+    listaa, vertices = __preparation(graph_by_matrix, rfactor, radius)
+    if not digraph:
+        listaa = np.sort(listaa)
+    for (first, second) in listaa:
+        line_axis = (vertices[second].pos - vertices[first].pos)
+        line_axis_normalized = line_axis.norm()
+
+        rand_color = vec(rand.random(), rand.random(), rand.random())
         if digraph:
             arrow(pos=vertices[second].pos - 1.9 * radius * line_axis_normalized,
                   axis=line_axis_normalized,
