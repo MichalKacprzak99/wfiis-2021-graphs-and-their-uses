@@ -1,9 +1,9 @@
-from typing import Tuple, List
-
 import numpy as np
 
-from grafy.project3 import dijkstra_algorithm
-from grafy.project4 import bellman_ford
+from typing import Tuple, List
+
+from grafy.project3.dijkstra_algorithm import dijkstra_algorithm
+from grafy.project4.bellman_ford import bellman_ford
 
 
 def add_s(G: np.ndarray, w: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
@@ -66,7 +66,7 @@ def johnson(G: np.ndarray, w: np.ndarray) -> List[np.ndarray]:
 
     w_dashed = np.zeros((vertices_number + 1, vertices_number + 1))
 
-    h = bellman_ford.bellman_ford(g_prim, w_prim, vertices_number)
+    h = bellman_ford(g_prim, w_prim, vertices_number)
 
     if h[0] is False:
         raise ValueError('A negative cycle has been found in the graph. The algorithm cannot proceed')

@@ -1,6 +1,6 @@
-from collections import defaultdict
-
 import numpy as np
+
+from collections import defaultdict
 
 from grafy.project1.graph_conversion import adj_matrix_to_list
 
