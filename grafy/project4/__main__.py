@@ -2,28 +2,28 @@ import sys
 
 sys.path.append('../..')
 
-from grafy.project4 import kosaraju
-from grafy.project4 import bellman_ford
-from grafy.project4 import digraph_generation
-from grafy.project4 import johnson
-from grafy.project1 import graph_visualization
+from grafy.project4.kosaraju import kosaraju
+from grafy.project4.bellman_ford import bellman_ford, assign_weights_to_adj_matrix
+from grafy.project4.digraph_generation import generate_N_P_digraph
+from grafy.project4.johnson import johnson
+from grafy.project1.graph_visualization import visualize_weighted_graph
 
 vertice_number = 7
 probability = 0.5
 
-adj_matrix = digraph_generation.generate_N_P_digraph(vertice_number, probability)
-graph_connected_components = kosaraju.kosaraju(adj_matrix)
+adj_matrix = generate_N_P_digraph(vertice_number, probability)
+graph_connected_components = kosaraju(adj_matrix)
 
-weighted_adj_matrix = bellman_ford.assign_weights_to_adj_matrix(adj_matrix)
-cycle_info = bellman_ford.bellman_ford(adj_matrix, weighted_adj_matrix, 0)
+weighted_adj_matrix = assign_weights_to_adj_matrix(adj_matrix)
+cycle_info = bellman_ford(adj_matrix, weighted_adj_matrix, 0)
 counter = 1
 
 while len(graph_connected_components) != 1 or cycle_info[0] is not True:
-    adj_matrix = digraph_generation.generate_N_P_digraph(vertice_number, probability)
-    graph_connected_components = kosaraju.kosaraju(adj_matrix)
+    adj_matrix = generate_N_P_digraph(vertice_number, probability)
+    graph_connected_components = kosaraju(adj_matrix)
 
-    weighted_adj_matrix = bellman_ford.assign_weights_to_adj_matrix(adj_matrix)
-    cycle_info = bellman_ford.bellman_ford(adj_matrix, weighted_adj_matrix, 0)
+    weighted_adj_matrix = assign_weights_to_adj_matrix(adj_matrix)
+    cycle_info = bellman_ford(adj_matrix, weighted_adj_matrix, 0)
     counter = counter + 1
 
 print("Generated digraph:")
@@ -44,7 +44,8 @@ print(cycle_info)
 print(" ")
 print("Johnson algorithm:")
 print("Distance matrix:")
-D = johnson.johnson(adj_matrix, weighted_adj_matrix)
+D = johnson(adj_matrix, weighted_adj_matrix)
 for row in D:
     print(row)
-graph_visualization.visualize_weighted_graph(adj_matrix, weighted_adj_matrix, True)
+
+visualize_weighted_graph(adj_matrix, weighted_adj_matrix, True)

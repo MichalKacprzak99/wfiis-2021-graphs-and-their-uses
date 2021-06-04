@@ -1,9 +1,11 @@
 import numpy as np
-from grafy.project3.dijkstra_algorithm import init, relax
-from grafy.project1 import graph_conversion
-from typing import Tuple, Union, List, Dict
 import copy
 import random
+
+from typing import Tuple
+
+from grafy.project3.dijkstra_algorithm import init, relax
+from grafy.project1.graph_conversion import adj_matrix_to_list
 
 
 def assign_weights_to_adj_matrix(adj_matrix: np.ndarray) -> np.ndarray:
@@ -65,7 +67,7 @@ def bellman_ford(G: np.ndarray, w: np.ndarray, s: int) -> Tuple[bool, np.ndarray
 
     vertices_number, _ = G.shape
     d_s, p_s = init(vertices_number, s)
-    adj_list = graph_conversion.adj_matrix_to_list(G)
+    adj_list = adj_matrix_to_list(G)
 
     for i in range(vertices_number - 1):
         for u in range(vertices_number):
