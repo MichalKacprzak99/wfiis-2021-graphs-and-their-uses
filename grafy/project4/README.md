@@ -38,8 +38,7 @@ przykładowe użycie zaimplementowanych funkcji.
   
   adj_matrix = digraph_generation.generate_N_P_digraph(vertice_number, probability)
   ```
-
-    * Wykorzystanie algorytmu Kosaraju - do znajdowania składowych w grafie:
+* Wykorzystanie algorytmu Kosaraju - do znajdowania składowych w grafie:
   ```python
   from grafy.project4 import kosaraju
   
