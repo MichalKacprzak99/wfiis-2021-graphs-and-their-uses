@@ -31,16 +31,18 @@ def assign_weights_to_adj_matrix(adj_matrix: np.ndarray) -> np.ndarray:
                 adj_matrix_weighted[i][j] = random.randint(-5, 11)
 
     return adj_matrix_weighted
+
+
 # G - graph matrix, w - weighted matrix, s - start vertex
 
 
-def generate_connected_digraph(vertice_amount: int, edge_probability: float) -> Tuple[
-    np.ndarray, np.ndarray, dict, Tuple[bool, np.ndarray, np.ndarray]]:
+def generate_connected_digraph(vertices_amount: int, edge_probability: float) -> \
+        Tuple[np.ndarray, np.ndarray, dict, Tuple[bool, np.ndarray, np.ndarray]]:
     """Function assigns weights to a given adjacency matrix
 
     Parameters
     ----------
-    vertice_amount: int
+    vertices_amount: int
         Number specifying the amount of vertices in the generated graph
     edge_probability: float
         Probability that between two vertices an edge will appear
@@ -53,7 +55,7 @@ def generate_connected_digraph(vertice_amount: int, edge_probability: float) -> 
         algorithm. For reference, check bellman_ford function docstring.
 
     """
-    adj_matrix = generate_N_P_digraph(vertice_amount, edge_probability)
+    adj_matrix = generate_N_P_digraph(vertices_amount, edge_probability)
     graph_connected_components = kosaraju(adj_matrix)
 
     weighted_adj_matrix = assign_weights_to_adj_matrix(adj_matrix)
@@ -61,7 +63,7 @@ def generate_connected_digraph(vertice_amount: int, edge_probability: float) -> 
     counter = 1
 
     while len(graph_connected_components) != 1 or cycle_info[0] is not True:
-        adj_matrix = generate_N_P_digraph(vertice_amount, edge_probability)
+        adj_matrix = generate_N_P_digraph(vertices_amount, edge_probability)
         graph_connected_components = kosaraju(adj_matrix)
 
         weighted_adj_matrix = assign_weights_to_adj_matrix(adj_matrix)
