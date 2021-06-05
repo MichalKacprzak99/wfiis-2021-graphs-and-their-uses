@@ -6,8 +6,7 @@ from grafy.project4.kosaraju import kosaraju
 from grafy.project4.bellman_ford import bellman_ford, assign_weights_to_adj_matrix, generate_connected_digraph
 from grafy.project4.digraph_generation import generate_N_P_digraph
 from grafy.project4.johnson import johnson
-from grafy.project1.graph_visualization import visualize_graph
-from grafy.project5.__main__ import print_array
+
 
 
 vertice_amount = 7
@@ -41,4 +40,4 @@ D = johnson(adj_matrix, weighted_adj_matrix)
 for row in D:
     print(row)
 
-visualize_graph(weighted_adj_matrix, True, True)
+visualize_weighted_graph(adj_matrix, weighted_adj_matrix, True)
